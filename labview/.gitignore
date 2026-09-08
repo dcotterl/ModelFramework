@@ -1,0 +1,29 @@
+# LabVIEW specific ignores
+
+# LabVIEW compiled/build outputs
+builds/
+*.exe
+*.lvlibp
+
+# LabVIEW compiled object cache
+*.lvlps
+
+# LabVIEW backup files
+*.vi.bak
+*.lvproj.bak
+*~$*.vi
+*~$*.lvproj
+*~$*.lvlib
+
+# LabVIEW temporary files
+*.aliases
+*.lvbitx.bak
+
+# LLB and packed library temp files
+*.llb.lock
+
+# NI Package Builder outputs
+*.nipkg
+
+# LabVIEW project cache
+.lvproj_cache/
