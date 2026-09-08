@@ -1,0 +1,41 @@
+# MATLAB / Simulink specific ignores
+
+# Simulink cache/slx auto-generated files
+slprj/
+sccprj/
+*.slxc
+*.autosave
+*.asv
+
+# Simulink code generation
+codegen/
+*_grt_rtw/
+*_ert_rtw/
+*.rtw
+*.mexa64
+*.mexa32
+*.mexw64
+*.mexw32
+*.mexmaci64
+*.mex
+
+# MATLAB temporary/backup files
+*.m~
+octave-workspace
+
+# MATLAB Compiler / packaging
+*.ctf
+
+# Simulink report/log
+slprj.log
+*.rpt
+
+# MATLAB autosave
+*.mat.bak
+
+# Simulink Data Dictionary lock files
+*.sldd.lock
+
+# MATLAB Project cache
+resources/project/
+*.prj.bak

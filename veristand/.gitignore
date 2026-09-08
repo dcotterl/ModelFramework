@@ -1,0 +1,25 @@
+# NI VeriStand specific ignores
+
+# VeriStand generated deployment/build files
+*.rtdll
+*.out
+Build/
+Generated/
+
+# VeriStand backup files
+*.nivssdf.bak
+*.nivsproj.bak
+
+# VeriStand temporary/lock files
+*.lock
+~$*
+
+# VeriStand log files
+*.vslog
+*.log
+
+# Custom Device build outputs
+*.lvlibp
+
+# VeriStand cache
+.veristand_cache/
