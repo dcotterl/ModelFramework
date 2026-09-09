@@ -3,6 +3,7 @@
 import logging
 from pathlib import Path
 import json
+import re
 import matlab.engine
 
 
@@ -12,25 +13,78 @@ DEFAULT_MODEL = (
 	/ "model"
 	/ "simple_subsystems.slx"
 )
+DEFAULT_PARAMETER_FILE = (
+	Path(__file__).parents[2]
+	/ "matlab_simulink" 
+	/ "model" 
+	/ "simple_subsystems_parameters.m"
+	)
+
+DEFAULT_CODEGEN_DIRECTORY = Path(__file__).parents[2] / "matlab_simulink" / "codegen"
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 
+def execute_model_parameter_file(
+	parameter_file: Path = DEFAULT_PARAMETER_FILE,
+	engine=None,
+) -> dict[str, object]:
+	"""Run a MATLAB parameter script and return its base-workspace variables."""
+	logger.info("Executing MATLAB parameter file: %s", parameter_file)
+	parameter_file = Path(parameter_file)
+
+	if not parameter_file.is_file():
+		raise FileNotFoundError(f"MATLAB parameter file not found: {parameter_file}")
+	if parameter_file.suffix.lower() != ".m":
+		raise ValueError(f"MATLAB parameter file must have a .m extension: {parameter_file}")
+
+	owns_engine = engine is None
+	if owns_engine:
+		logger.info("Starting MATLAB Engine")
+		engine = matlab.engine.start_matlab()
+
+	try:
+		workspace_names_before = {
+			str(name) for name in engine.eval("who", nargout=1)
+		}
+		engine.run(str(parameter_file.resolve()), nargout=0)
+		workspace_names_after = {
+			str(name) for name in engine.eval("who", nargout=1)
+		}
+		parameter_names = sorted(workspace_names_after - workspace_names_before)
+		return {name: engine.workspace[name] for name in parameter_names}
+	finally:
+		if owns_engine:
+			logger.info("Closing MATLAB Engine")
+			engine.quit()
+
+
 def extract_subsystem_ports(
 	model_path: Path = DEFAULT_MODEL,
+	parameter_file: Path = DEFAULT_PARAMETER_FILE,
 ) -> list[dict[str, object]]:
+	
 	"""Return direct input and output port names for each top-level subsystem."""
+	logger.info("Extracting subsystem ports from model: %s", model_path)
 	model_path = Path(model_path)
+
 	if not model_path.is_file():
 		raise FileNotFoundError(f"Simulink model not found: {model_path}")
 
 	model_name = model_path.stem
 	logger.info("Starting MATLAB Engine")
 	engine = matlab.engine.start_matlab()
+	original_matlab_directory = None
+	model_loaded = False
 
 	try:
+		original_matlab_directory = str(engine.pwd(nargout=1))
+		engine.cd(str(model_path.resolve().parent), nargout=0)
+		execute_model_parameter_file(parameter_file, engine=engine)
 		logger.info("Loading Simulink model: %s", model_path)
 		engine.load_system(str(model_path.resolve()))
+		model_loaded = True
 
 		subsystems = engine.find_system(
 			model_name,
@@ -68,14 +122,20 @@ def extract_subsystem_ports(
 		return subsystem_ports
 	finally:
 		logger.info("Closing MATLAB Engine")
-		engine.close_system(model_name, 0, nargout=0)
+		if model_loaded:
+			engine.close_system(model_name, 0, nargout=0)
+		if original_matlab_directory is not None:
+			engine.cd(original_matlab_directory, nargout=0)
 		engine.quit()
 
 
 def find_continuous_blocks(
 	model_path: Path = DEFAULT_MODEL,
+	parameter_file: Path = DEFAULT_PARAMETER_FILE,
 ) -> list[str]:
+	
 	"""Return the full paths of blocks with a continuous compiled sample time."""
+	logger.info("Finding continuous blocks in model: %s", model_path)
 	model_path = Path(model_path)
 	if not model_path.is_file():
 		raise FileNotFoundError(f"Simulink model not found: {model_path}")
@@ -83,11 +143,17 @@ def find_continuous_blocks(
 	model_name = model_path.stem
 	logger.info("Starting MATLAB Engine")
 	engine = matlab.engine.start_matlab()
+	original_matlab_directory = None
+	model_loaded = False
 	model_compiled = False
 
 	try:
+		original_matlab_directory = str(engine.pwd(nargout=1))
+		engine.cd(str(model_path.resolve().parent), nargout=0)
+		execute_model_parameter_file(parameter_file, engine=engine)
 		logger.info("Loading Simulink model: %s", model_path)
 		engine.load_system(str(model_path.resolve()))
+		model_loaded = True
 
 		empty_argument = matlab.double([])
 		engine.feval(
@@ -102,6 +168,7 @@ def find_continuous_blocks(
 
 		continuous_sample_time = matlab.double([0.0, 0.0])
 		blocks = engine.find_system(model_name, "Type", "Block", nargout=1)
+		logger.info("Inspecting all blocks in the model for continuous sample time")
 		continuous_blocks = [
 			str(block)
 			for block in blocks
@@ -125,7 +192,136 @@ def find_continuous_blocks(
 				nargout=0,
 			)
 		logger.info("Closing MATLAB Engine")
-		engine.close_system(model_name, 0, nargout=0)
+		if model_loaded:
+			engine.close_system(model_name, 0, nargout=0)
+		if original_matlab_directory is not None:
+			engine.cd(original_matlab_directory, nargout=0)
+		engine.quit()
+
+
+def compile_top_level_subsystems(
+	model_path: Path = DEFAULT_MODEL,
+	output_directory: Path = DEFAULT_CODEGEN_DIRECTORY,
+	system_target_file: str | None = None,
+) -> list[dict[str, object]]:
+	"""Build each top-level subsystem and return its generated artifacts."""
+	model_path = Path(model_path)
+	if not model_path.is_file():
+		raise FileNotFoundError(f"Simulink model not found: {model_path}")
+
+	output_directory = Path(output_directory).resolve()
+	model_name = model_path.stem
+	logger.info("Starting MATLAB Engine")
+	engine = matlab.engine.start_matlab()
+	model_loaded = False
+	original_matlab_directory = None
+	file_generation_config = None
+	original_target_file = None
+	atomic_settings = {}
+
+	try:
+		original_matlab_directory = str(engine.pwd(nargout=1))
+		engine.cd(str(model_path.resolve().parent), nargout=0)
+		if not engine.license("test", "Real-Time_Workshop", nargout=1):
+			raise RuntimeError("A Simulink Coder license is required")
+		if (
+			system_target_file == "ert.tlc"
+			and not engine.license("test", "RTW_Embedded_Coder", nargout=1)
+		):
+			raise RuntimeError("An Embedded Coder license is required for ert.tlc")
+
+		logger.info("Loading Simulink model: %s", model_path)
+		engine.load_system(str(model_path.resolve()))
+		model_loaded = True
+		subsystems = engine.find_system(
+			model_name,
+			"SearchDepth",
+			1,
+			"BlockType",
+			"SubSystem",
+			nargout=1,
+		)
+
+		file_generation_config = engine.feval(
+			"Simulink.fileGenControl", "getConfig", nargout=1
+		)
+		if system_target_file is not None:
+			original_target_file = engine.get_param(
+				model_name, "SystemTargetFile", nargout=1
+			)
+			engine.set_param(
+				model_name,
+				"SystemTargetFile",
+				system_target_file,
+				nargout=0,
+			)
+
+		builds = []
+		for subsystem_index, subsystem in enumerate(subsystems, start=1):
+			subsystem = str(subsystem)
+			subsystem_name = str(engine.get_param(subsystem, "Name", nargout=1))
+			folder_name = re.sub(r"[^A-Za-z0-9_.-]+", "_", subsystem_name).strip("._")
+			folder_name = folder_name or "subsystem"
+			subsystem_output = output_directory / f"{subsystem_index:03d}_{folder_name}"
+			subsystem_output.mkdir(parents=True, exist_ok=True)
+
+			atomic_settings[subsystem] = str(
+				engine.get_param(subsystem, "TreatAsAtomicUnit", nargout=1)
+			)
+			engine.set_param(subsystem, "TreatAsAtomicUnit", "on", nargout=0)
+			engine.feval(
+				"Simulink.fileGenControl",
+				"set",
+				"CacheFolder",
+				str(subsystem_output),
+				"CodeGenFolder",
+				str(subsystem_output),
+				"createDir",
+				True,
+				nargout=0,
+			)
+
+			logger.info("Building subsystem: %s", subsystem)
+			engine.slbuild(subsystem, nargout=0)
+			artifacts = sorted(
+				str(path)
+				for path in subsystem_output.rglob("*")
+				if path.is_file()
+			)
+			builds.append(
+				{
+					"subsystem": subsystem,
+					"output_directory": str(subsystem_output),
+					"artifacts": artifacts,
+				}
+			)
+
+		logger.info("Built %d top-level subsystems", len(builds))
+		return builds
+	finally:
+		for subsystem, atomic_setting in atomic_settings.items():
+			engine.set_param(
+				subsystem, "TreatAsAtomicUnit", atomic_setting, nargout=0
+			)
+		if original_target_file is not None:
+			engine.set_param(
+				model_name,
+				"SystemTargetFile",
+				original_target_file,
+				nargout=0,
+			)
+		if file_generation_config is not None:
+			engine.feval(
+				"Simulink.fileGenControl",
+				"setConfig",
+				file_generation_config,
+				nargout=0,
+			)
+		logger.info("Closing MATLAB Engine")
+		if model_loaded:
+			engine.close_system(model_name, 0, nargout=0)
+		if original_matlab_directory is not None:
+			engine.cd(original_matlab_directory, nargout=0)
 		engine.quit()
 
 
