@@ -72,11 +72,68 @@ def extract_subsystem_ports(
 		engine.quit()
 
 
+def find_continuous_blocks(
+	model_path: Path = DEFAULT_MODEL,
+) -> list[str]:
+	"""Return the full paths of blocks with a continuous compiled sample time."""
+	model_path = Path(model_path)
+	if not model_path.is_file():
+		raise FileNotFoundError(f"Simulink model not found: {model_path}")
+
+	model_name = model_path.stem
+	logger.info("Starting MATLAB Engine")
+	engine = matlab.engine.start_matlab()
+	model_compiled = False
+
+	try:
+		logger.info("Loading Simulink model: %s", model_path)
+		engine.load_system(str(model_path.resolve()))
+
+		empty_argument = matlab.double([])
+		engine.feval(
+			model_name,
+			empty_argument,
+			empty_argument,
+			empty_argument,
+			"compile",
+			nargout=0,
+		)
+		model_compiled = True
+
+		continuous_sample_time = matlab.double([0.0, 0.0])
+		blocks = engine.find_system(model_name, "Type", "Block", nargout=1)
+		continuous_blocks = [
+			str(block)
+			for block in blocks
+			if engine.isequal(
+				engine.get_param(block, "CompiledSampleTime", nargout=1),
+				continuous_sample_time,
+				nargout=1,
+			)
+		]
+
+		logger.info("Found %d continuous blocks", len(continuous_blocks))
+		return continuous_blocks
+	finally:
+		if model_compiled:
+			engine.feval(
+				model_name,
+				matlab.double([]),
+				matlab.double([]),
+				matlab.double([]),
+				"term",
+				nargout=0,
+			)
+		logger.info("Closing MATLAB Engine")
+		engine.close_system(model_name, 0, nargout=0)
+		engine.quit()
+
+
 def main() -> None:
 	"""Run the subsystem utility with the default model."""
-	ports = extract_subsystem_ports()
-	print(json.dumps(ports, indent=4))
-
+	#ports = extract_subsystem_ports()
+	#print(json.dumps(ports, indent=4))
+	print(json.dumps(find_continuous_blocks(), indent=4))
 
 if __name__ == "__main__":
 	main()
