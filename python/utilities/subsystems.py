@@ -14,10 +14,10 @@ DEFAULT_MODEL = (
 )
 DEFAULT_PARAMETER_FILE = (
 	Path(__file__).parents[2]
-	/ "matlab_simulink" 
-	/ "model" 
+	/ "matlab_simulink"
+	/ "model"
 	/ "simple_subsystems_parameters.m"
-	)
+)
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
