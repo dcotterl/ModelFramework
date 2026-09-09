@@ -4,7 +4,9 @@ Utilities and example assets for inspecting and integrating engineering models
 across Python, MATLAB/Simulink, NI VeriStand, and NI LabVIEW.
 
 The current Python tools can inspect a Simulink model, extract subsystem port
-names, and identify continuous-time blocks.
+names, identify continuous-time blocks, and map Goto/From signal connections.
+The MATLAB tools cover the same inspection tasks plus building subsystems with
+Simulink Coder.
 
 ## Repository Structure
 

@@ -127,6 +127,33 @@ The result has this shape:
 ]
 ```
 
+### Goto/From signal mapping
+
+`map_goto_from_connections()` scans the top level of the model for `Goto` and
+`From` blocks and, for each tag, resolves the actual block feeding the `Goto`
+block and the block(s) fed by the matching `From` block(s):
+
+```python
+from python.utilities.subsystems import map_goto_from_connections
+
+connections = map_goto_from_connections()
+```
+
+The result has this shape:
+
+```json
+[
+	{
+		"tag": "SignalA",
+		"output": "average_subsystems/Controller",
+		"inputs": ["average_subsystems/Plant"]
+	}
+]
+```
+
+`output` is `None` and `inputs` is empty for a tag whose `Goto`/`From` block is
+not wired to another block.
+
 ### Model parameter files
 
 `execute_model_parameter_file()` runs a MATLAB `.m` script in the MATLAB base
