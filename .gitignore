@@ -19,3 +19,17 @@ desktop.ini
 
 # Logs
 *.log
+
+# Matlab
+*.asv
+*.mex*
+*.slxc
+*.slxautosave
+*.mdlautosave
+*.slxbackup
+*.mdlbackup
+*.slxautosave
+*.mdlautosave
+*.slxlock
+*.mdllock
+slprj/

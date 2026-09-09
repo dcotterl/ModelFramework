@@ -13,6 +13,20 @@ processing, or automating tasks around the models (for example: data
 processing, code generation, testing, or integration scripts), keeping this
 code isolated from the other tool-specific folders in the repository.
 
+## Requirements
+
+- A supported Python version for the installed MATLAB release
+- MATLAB with Simulink
+- MATLAB Engine for Python installed in the active Python environment
+
+Verify that the engine is available before running the utilities:
+
+```powershell
+python -c "import matlab.engine; print('MATLAB Engine available')"
+```
+
+Commands in this document assume the current directory is the repository root.
+
 ## Simulink model inspection
 
 `hello.py` lists every block and every explicitly named signal in a Simulink
@@ -49,3 +63,69 @@ INFO: Found ... blocks
 INFO: Found ... signal lines
 INFO: Closing Simulink model and MATLAB Engine
 ```
+
+## Subsystem utilities
+
+`utilities/subsystems.py` provides two APIs for inspecting Simulink subsystem
+structure and timing. Both use the included model by default:
+
+```text
+matlab_simulink/model/simple_subsystems.slx
+```
+
+Run the utility directly to print a JSON array containing the full paths of
+all continuous-time blocks:
+
+```powershell
+python python/utilities/subsystems.py
+```
+
+### Continuous-time blocks
+
+`find_continuous_blocks()` compiles the model and recursively inspects its
+blocks. A block is reported as continuous when its compiled sample time is
+exactly `[0, 0]`. The returned strings are full Simulink block paths.
+
+```python
+from python.utilities.subsystems import find_continuous_blocks
+
+continuous_blocks = find_continuous_blocks()
+for block_path in continuous_blocks:
+	print(block_path)
+```
+
+Pass a `pathlib.Path` or path-like value to inspect another model:
+
+```python
+continuous_blocks = find_continuous_blocks("path/to/model.slx")
+```
+
+An empty list means that no blocks have a continuous compiled sample time.
+The function raises `FileNotFoundError` if the model path does not exist, and
+MATLAB reports model compilation errors through MATLAB Engine.
+
+### Subsystem ports
+
+`extract_subsystem_ports()` returns the direct input and output port names for
+each top-level subsystem:
+
+```python
+from python.utilities.subsystems import extract_subsystem_ports
+
+subsystems = extract_subsystem_ports()
+```
+
+The result has this shape:
+
+```json
+[
+	{
+		"subsystem": "Controller",
+		"input": ["Reference", "Feedback"],
+		"output": ["Command"]
+	}
+]
+```
+
+Each API starts MATLAB Engine, loads the requested model without opening the
+Simulink editor, and closes the model and engine before returning.

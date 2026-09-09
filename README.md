@@ -1,6 +1,10 @@
 # ModelFramework
 
-Tools for handling models
+Utilities and example assets for inspecting and integrating engineering models
+across Python, MATLAB/Simulink, NI VeriStand, and NI LabVIEW.
+
+The current Python tools can inspect a Simulink model, extract subsystem port
+names, and identify continuous-time blocks.
 
 ## Repository Structure
 
@@ -22,6 +26,19 @@ own `.gitignore` tailored to the tool used in that folder.
 | MATLAB / Simulink | Modeling and simulation |
 | NI VeriStand | Real-time testing and simulation |
 | NI LabVIEW | Application development and hardware interfacing |
+
+## Getting Started
+
+The included Python examples require a local MATLAB/Simulink installation and
+MATLAB Engine for Python. See the [Python documentation](python/README.md) for
+setup requirements, commands, and API examples.
+
+From the repository root, report the continuous-time blocks in the included
+model with:
+
+```powershell
+python python/utilities/subsystems.py
+```
 
 ## Versions
 
