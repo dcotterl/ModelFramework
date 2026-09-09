@@ -2,7 +2,7 @@
 
 ## Content
 
-This folder contains MATLAB scripts, functions, and Simulink models used in the
+This folder contains MATLAB scripts, utilities, and Simulink models used in the
 ModelFramework project, including `.m` files, `.mlx` live scripts, `.slx`/`.mdl`
 Simulink models, MATLAB projects, and any associated configuration or data
 files needed to run them.
@@ -14,14 +14,16 @@ code used for modeling, simulation, and analysis within the ModelFramework
 project, keeping this content isolated from the other tool-specific folders in
 the repository.
 
-## Functions
+## Utilities
 
-The `model/` folder contains reusable functions that operate on the included
-Simulink models (`simple_subsystems.slx`, `average_subsystems.slx`). Add the
-folder to the MATLAB path before calling them:
+The `utilities/` folder contains reusable functions that operate on the
+included Simulink models (`simple_subsystems.slx`, `average_subsystems.slx`).
+Add both the model and utilities folders to the MATLAB path before calling
+them:
 
 ```matlab
 addpath(genpath('matlab_simulink/model'));
+addpath(genpath('matlab_simulink/utilities'));
 ```
 
 | Function | Purpose |
@@ -38,9 +40,16 @@ connections = extract_map('average_subsystems');
 [subsystems, buildInfo] = build_subsystems('average_subsystems');
 ```
 
-`simple_subsystems_parameters.m` sets the base-workspace variables consumed by
-the included models before they are loaded or built.
+## Model parameters
 
-See [`example.m`](example.m) for a runnable script that adds the model folder
-to the path, lists the available functions, and calls each of them against
-`average_subsystems`.
+The `model/simple_subsystems_parameters.m` script sets the base-workspace
+variables consumed by the included models before they are loaded or built. Run
+it after adding the model folder to the MATLAB path:
+
+```matlab
+run('matlab_simulink/model/simple_subsystems_parameters.m');
+```
+
+See [`example.m`](example.m) for a runnable script that adds the model and
+utilities folders to the path, lists the available utilities, and calls each
+of them against `average_subsystems`.
