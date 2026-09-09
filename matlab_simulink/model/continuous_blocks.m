@@ -17,7 +17,7 @@ function continuousBlocks = continuous_blocks(modelName)
 %           SampleTime  - sample time of the block
 
     if nargin < 1 || isempty(modelName)
-        error('subsystem:invalidInput', 'A model name must be provided.');
+        error('continuous_blocks:invalidInput', 'A model name must be provided.');
     end
 
     % Strip extension if provided
