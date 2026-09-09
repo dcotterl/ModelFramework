@@ -1,7 +1,7 @@
 function continuousBlocks = continuous_blocks(modelName)
-% SUBSYSTEM Identify all continuous blocks present in a given model.
+%CONTINUOUS_BLOCKS Identify all continuous blocks present in a given model.
 %
-%   continuousBlocks = subsystem(modelName) loads (if necessary) the
+%   continuousBlocks = continuous_blocks(modelName) loads (if necessary) the
 %   model specified by modelName, scans all blocks in the model
 %   hierarchy, and returns a list of blocks that have continuous sample
 %   time (SampleTime == 0 or ContStateInfo indicates continuous states).
