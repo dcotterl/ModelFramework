@@ -10,7 +10,7 @@ DEFAULT_MODEL = (
 	Path(__file__).parents[2]
 	/ "matlab_simulink"
 	/ "model"
-	/ "simple_subsystems.slx"
+	/ "average_subsystems.slx"
 )
 DEFAULT_PARAMETER_FILE = (
 	Path(__file__).parents[2]
@@ -197,8 +197,8 @@ def find_continuous_blocks(
 
 def main() -> None:
 	"""Run the subsystem utility with the default model."""
-	#ports = extract_subsystem_ports()
-	#print(json.dumps(ports, indent=4))
+	ports = extract_subsystem_ports()
+	print(json.dumps(ports, indent=4))
 	print(json.dumps(find_continuous_blocks(), indent=4))
 
 if __name__ == "__main__":
