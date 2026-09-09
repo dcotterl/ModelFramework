@@ -70,11 +70,11 @@ INFO: Closing Simulink model and MATLAB Engine
 They use the included model by default:
 
 ```text
-matlab_simulink/model/simple_subsystems.slx
+matlab_simulink/model/average_subsystems.slx
 ```
 
-Run the utility directly to print a JSON array containing the full paths of
-all continuous-time blocks:
+Run the utility directly to print JSON output from
+`map_goto_from_connections()`:
 
 ```powershell
 python python/utilities/subsystems.py
