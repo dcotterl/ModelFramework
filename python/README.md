@@ -66,15 +66,15 @@ INFO: Closing Simulink model and MATLAB Engine
 
 ## Subsystem utilities
 
-`utilities/subsystems.py` provides two APIs for inspecting Simulink subsystem
-structure and timing. Both use the included model by default:
+`utilities/subsystems.py` provides APIs for inspecting Simulink subsystems.
+They use the included model by default:
 
 ```text
-matlab_simulink/model/simple_subsystems.slx
+matlab_simulink/model/average_subsystems.slx
 ```
 
-Run the utility directly to print a JSON array containing the full paths of
-all continuous-time blocks:
+Run the utility directly to print JSON output from
+`map_goto_from_connections()`:
 
 ```powershell
 python python/utilities/subsystems.py
@@ -127,5 +127,70 @@ The result has this shape:
 ]
 ```
 
-Each API starts MATLAB Engine, loads the requested model without opening the
-Simulink editor, and closes the model and engine before returning.
+### Goto/From signal mapping
+
+`map_goto_from_connections()` scans the top level of the model for `Goto` and
+`From` blocks and, for each tag, resolves the actual block feeding the `Goto`
+block and the block(s) fed by the matching `From` block(s):
+
+```python
+from python.utilities.subsystems import map_goto_from_connections
+
+connections = map_goto_from_connections()
+```
+
+The result has this shape:
+
+```json
+[
+	{
+		"tag": "SignalA",
+		"output": "average_subsystems/Controller",
+		"inputs": ["average_subsystems/Plant"]
+	}
+]
+```
+
+`output` is `None` and `inputs` is empty for a tag whose `Goto`/`From` block is
+not wired to another block.
+
+### Model parameter files
+
+`execute_model_parameter_file()` runs a MATLAB `.m` script in the MATLAB base
+workspace and returns the variables created by the script:
+
+```python
+from python.utilities.subsystems import execute_model_parameter_file
+
+parameters = execute_model_parameter_file(
+	"matlab_simulink/model/simple_subsystems_parameters.m"
+)
+print(parameters["dt"])
+```
+
+By default, the function starts and closes its own MATLAB Engine. Pass an
+existing engine when the parameters must remain in the base workspace for a
+subsequent model load, simulation, or build:
+
+```python
+import matlab.engine
+
+from python.utilities.subsystems import execute_model_parameter_file
+
+engine = matlab.engine.start_matlab()
+try:
+	execute_model_parameter_file(
+		"matlab_simulink/model/simple_subsystems_parameters.m",
+		engine=engine,
+	)
+	engine.load_system("matlab_simulink/model/simple_subsystems.slx")
+finally:
+	engine.quit()
+```
+
+The function raises `FileNotFoundError` for a missing script and `ValueError`
+when the supplied file does not have a `.m` extension. MATLAB execution errors
+are propagated through MATLAB Engine.
+
+The model-inspection APIs start MATLAB Engine, load the requested model without
+opening the Simulink editor, and close the model and engine before returning.

@@ -18,6 +18,9 @@ codegen/
 *.mexw32
 *.mexmaci64
 *.mex
+*_rtw/
+*.dll
+*.vsmodel
 
 # MATLAB temporary/backup files
 *.m~
