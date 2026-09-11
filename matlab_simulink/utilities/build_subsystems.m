@@ -8,7 +8,7 @@ function [subsystems, buildInfo] = build_subsystems(modelName, modelParams)
 %
 %   Example with model configuration parameters:
 %       params = struct('SystemTargetFile', 'veristand.tlc');
-%       [subsystems, buildInfo] = build_subsystems('simple_subsystems', params);
+%       [subsystems, buildInfo] = build_subsystems('model/simple_subsystems', params);
 arguments (Input)
     modelName (1,:) char
     modelParams struct = struct()
