@@ -10,56 +10,14 @@ DEFAULT_MODEL = (
 	Path(__file__).parents[2]
 	/ "matlab_simulink"
 	/ "model"
-	/ "average_subsystems.slx"
+	/ "average_subsystems_2025b.slx"
 )
-DEFAULT_PARAMETER_FILE = (
-	Path(__file__).parents[2]
-	/ "matlab_simulink"
-	/ "model"
-	/ "simple_subsystems_parameters.m"
-)
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 
-def execute_model_parameter_file(
-	parameter_file: Path = DEFAULT_PARAMETER_FILE,
-	engine=None,
-) -> dict[str, object]:
-	"""Run a MATLAB parameter script and return its base-workspace variables."""
-	logger.info("Executing MATLAB parameter file: %s", parameter_file)
-	parameter_file = Path(parameter_file)
-
-	if not parameter_file.is_file():
-		raise FileNotFoundError(f"MATLAB parameter file not found: {parameter_file}")
-	if parameter_file.suffix.lower() != ".m":
-		raise ValueError(f"MATLAB parameter file must have a .m extension: {parameter_file}")
-
-	owns_engine = engine is None
-	if owns_engine:
-		logger.info("Starting MATLAB Engine")
-		engine = matlab.engine.start_matlab()
-
-	try:
-		workspace_names_before = {
-			str(name) for name in engine.eval("who", nargout=1)
-		}
-		engine.run(str(parameter_file.resolve()), nargout=0)
-		workspace_names_after = {
-			str(name) for name in engine.eval("who", nargout=1)
-		}
-		parameter_names = sorted(workspace_names_after - workspace_names_before)
-		return {name: engine.workspace[name] for name in parameter_names}
-	finally:
-		if owns_engine:
-			logger.info("Closing MATLAB Engine")
-			engine.quit()
-
-
-def extract_subsystem_ports(
-	model_path: Path = DEFAULT_MODEL,
-	parameter_file: Path = DEFAULT_PARAMETER_FILE,
-) -> list[dict[str, object]]:
+def extract_subsystem_ports(model_path: Path = DEFAULT_MODEL) -> list[dict[str, object]]:
 	
 	"""Return direct input and output port names for each top-level subsystem."""
 	logger.info("Extracting subsystem ports from model: %s", model_path)
@@ -77,7 +35,7 @@ def extract_subsystem_ports(
 	try:
 		original_matlab_directory = str(engine.pwd(nargout=1))
 		engine.cd(str(model_path.resolve().parent), nargout=0)
-		execute_model_parameter_file(parameter_file, engine=engine)
+		#execute_model_parameter_file(parameter_file, engine=engine)
 		logger.info("Loading Simulink model: %s", model_path)
 		engine.load_system(str(model_path.resolve()))
 		model_loaded = True
@@ -125,10 +83,7 @@ def extract_subsystem_ports(
 		engine.quit()
 
 
-def find_continuous_blocks(
-	model_path: Path = DEFAULT_MODEL,
-	parameter_file: Path = DEFAULT_PARAMETER_FILE,
-) -> list[str]:
+def find_continuous_blocks(model_path: Path = DEFAULT_MODEL) -> list[str]:
 	
 	"""Return the full paths of blocks with a continuous compiled sample time."""
 	logger.info("Finding continuous blocks in model: %s", model_path)
@@ -146,7 +101,7 @@ def find_continuous_blocks(
 	try:
 		original_matlab_directory = str(engine.pwd(nargout=1))
 		engine.cd(str(model_path.resolve().parent), nargout=0)
-		execute_model_parameter_file(parameter_file, engine=engine)
+		#execute_model_parameter_file(parameter_file, engine=engine)
 		logger.info("Loading Simulink model: %s", model_path)
 		engine.load_system(str(model_path.resolve()))
 		model_loaded = True
@@ -241,10 +196,7 @@ def _resolve_signal_endpoint(
 	return {"subsystem": relative_name, "port": None}
 
 
-def map_goto_from_connections(
-	model_path: Path = DEFAULT_MODEL,
-	parameter_file: Path = DEFAULT_PARAMETER_FILE,
-) -> list[dict[str, object]]:
+def map_goto_from_connections(model_path: Path = DEFAULT_MODEL) -> list[dict[str, object]]:
 
 	"""Map each Goto/From tag to the subsystem ports sending/receiving its signal.
 
@@ -269,7 +221,6 @@ def map_goto_from_connections(
 	try:
 		original_matlab_directory = str(engine.pwd(nargout=1))
 		engine.cd(str(model_path.resolve().parent), nargout=0)
-		execute_model_parameter_file(parameter_file, engine=engine)
 		logger.info("Loading Simulink model: %s", model_path)
 		engine.load_system(str(model_path.resolve()))
 		model_loaded = True
@@ -342,8 +293,8 @@ def map_goto_from_connections(
 
 def main() -> None:
 	"""Run the subsystem utility with the default model."""
-	#print(json.dumps(extract_subsystem_ports(), indent=4))
-	#print(json.dumps(find_continuous_blocks(), indent=4))
+	print(json.dumps(extract_subsystem_ports(), indent=4))
+	print(json.dumps(find_continuous_blocks(), indent=4))
 	print(json.dumps(map_goto_from_connections(), indent=4))
 
 if __name__ == "__main__":
