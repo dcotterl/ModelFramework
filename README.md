@@ -46,7 +46,21 @@ python python/utilities/subsystems.py
 
 | Tool | Version |
 | --- | --- |
-| Python | TBD |
-| MATLAB / Simulink | TBD |
-| NI VeriStand | TBD |
+| Python | 3.10 |
+| MATLAB / Simulink | 2026a |
+| NI VeriStand | 2025Q3 |
 | NI LabVIEW | TBD |
+
+## Python Libraries
+
+[NI VeriStand](https://niveristand-python.readthedocs.io/en/latest/getting_started.html)
+
+```powershell
+python -m pip install niveristand
+```
+
+MatlabEngine
+
+```powershell
+python -m pip install matlabengine 
+```

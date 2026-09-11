@@ -1,0 +1,2 @@
+Targets/Controller/Simulation Models/Models/Controller/Outports/Control_Signal	Targets/Controller/Simulation Models/Models/Plant/Inports/Control_Signal
+Targets/Controller/Simulation Models/Models/Plant/Outports/Process_Variable	Targets/Controller/Simulation Models/Models/Controller/Inports/Process_Variable

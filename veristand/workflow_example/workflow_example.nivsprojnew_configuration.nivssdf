@@ -1,0 +1,1740 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="System definition.xsd">
+	<MD5Checksum />
+	<Version Major="2020" Minor="0" Fix="0" Build="0" />
+	<Content>Definition</Content>
+	<Root Name="workflow_example.nivsprojnew_configuration.nivssdf" TypeGUID="03D3BA22-1485-13A6-56BD17DA950CCD00" Identifier="ade86416-ad16-4989-8ca8-a36bca310fa1">
+		<Description>System Definition created by ModelFramework</Description>
+		<Properties>
+			<Property Name="Name">
+				<String>workflow_example.nivsprojnew_configuration.nivssdf</String>
+			</Property>
+			<Property Name="Version">
+				<String>1.0.0.0</String>
+			</Property>
+			<Property Name="Creator">
+				<String>ModelFramework</String>
+			</Property>
+			<Property Name="Creation Date">
+				<Double>3871975597.2298608</Double>
+			</Property>
+		</Properties>
+		<Errors />
+		<TargetSections Name="Targets" TypeGUID="eb379619-68d7-4d81-be90-c0bc511cdc10" Identifier="da29af63-9d45-4d11-9811-ca3c84af5d36">
+			<Description />
+			<Properties />
+			<Errors />
+			<Target Name="Controller" TypeGUID="775504BB-1485-13A6-56755DBF2C326980" Identifier="d7c79f06-22ea-4e42-b2a3-5682d3f09528">
+				<Description />
+				<Properties>
+					<Property Name="OS">
+						<String>Windows</String>
+					</Property>
+					<Property Name="IP Address">
+						<String>127.0.0.1</String>
+					</Property>
+					<Property Name="Control Loop Processor">
+						<I32>-2</I32>
+					</Property>
+					<Property Name="Secondary Control Loop Processor">
+						<I32>-2</I32>
+					</Property>
+					<Property Name="Stream Rate">
+						<I32>1</I32>
+					</Property>
+					<Property Name="DIO Rate">
+						<Double>100</Double>
+					</Property>
+					<Property Name="Streamed Channels">
+						<I32>512</I32>
+					</Property>
+					<Property Name="Filter DAQ Errors">
+						<Boolean>false</Boolean>
+					</Property>
+					<Property Name="Filter Watchdog Errors">
+						<Boolean>false</Boolean>
+					</Property>
+					<Property Name="Engine Rate">
+						<Double>100</Double>
+					</Property>
+					<Property Name="TL timeout">
+						<Double>120</Double>
+					</Property>
+					<Property Name="daq timeout">
+						<U32>1000</U32>
+					</Property>
+					<Property Name="TL sleep time">
+						<U32>0</U32>
+					</Property>
+					<Property Name="HS Port">
+						<I32>2040</I32>
+					</Property>
+					<Property Name="LS Port">
+						<I32>2050</I32>
+					</Property>
+					<Property Name="HS Port Timeout">
+						<I32>1000</I32>
+					</Property>
+					<Property Name="LS Port Timeout">
+						<I32>1000</I32>
+					</Property>
+					<Property Name="Deployment Group">
+						<I32>0</I32>
+					</Property>
+					<Property Name="Control Rate">
+						<Double>1</Double>
+					</Property>
+					<Property Name="Execution Mode">
+						<U32>0</U32>
+					</Property>
+					<Property Name="ts">
+						<U32>0</U32>
+					</Property>
+					<Property Name="Warmup Time [ms]">
+						<U32>2000</U32>
+					</Property>
+					<Property Name="Data Rate">
+						<Double>15</Double>
+					</Property>
+					<Property Name="FPGAScanInterfaceMode">
+						<U16>0</U16>
+					</Property>
+				</Properties>
+				<Errors />
+				<Section Name="Hardware" TypeGUID="775504AB-1485-13A6-560018C1F4E3EEE1" Identifier="91b00b7d-bd18-4de6-9248-de3e790c43c0">
+					<Description />
+					<Properties />
+					<Errors />
+					<Section Name="Chassis" TypeGUID="03D3BACD-1485-13A6-56E99D97B7543BAF" Identifier="6fc75ec8-720f-4395-974f-8bac0cbeca2e">
+						<Description />
+						<Properties>
+							<Property Name="Master type">
+								<U32>1</U32>
+							</Property>
+						</Properties>
+						<Errors />
+						<Section Name="Timing and Sync" TypeGUID="03D3BAED-1485-13A6-56E20B50F6E06D94" Identifier="be18462b-3dc9-4122-805f-b60687df380e">
+							<Description />
+							<Properties />
+							<Errors />
+						</Section>
+						<Section Name="DAQ" TypeGUID="77550612-1485-13A6-56570AB5032158E9" Identifier="98658a6e-af69-4d78-b209-7d00b404bab5">
+							<Description />
+							<Properties />
+							<Errors />
+							<Section Name="Waveform Tasks" TypeGUID="1D6B8779-A957-42D1-B074-82153DB7FF44" Identifier="89cd4452-1db5-4404-a273-c7fb348f9eab">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+						</Section>
+						<Section Name="FPGA" TypeGUID="03D3B659-1485-13A6-5652D8A07328ECB7" Identifier="2c129ec1-50b9-44da-9f25-49ce229a96b5">
+							<Description />
+							<Properties />
+							<Errors />
+						</Section>
+						<Section Name="NI-XNET" TypeGUID="6b693e6d-67b1-40b8-8108-4a4cc3147721" Identifier="66f10eb5-a5f4-4803-bb5e-a66312849f6b">
+							<Description />
+							<Properties>
+								<Property Name="CD Status">
+									<U32>2</U32>
+								</Property>
+								<Property Name="Decimation">
+									<I32>1</I32>
+								</Property>
+								<Property Name="Driver VI Exec Mode">
+									<U32>1</U32>
+								</Property>
+								<Property Name="user.CD.Version">
+									<U32>1</U32>
+								</Property>
+							</Properties>
+							<Errors />
+							<Section Name="CAN" TypeGUID="6c5bb91f-0da7-407d-aefc-acbe49c768df" Identifier="985707b4-7073-4d8d-9f0e-04fe4174a785">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+							<Section Name="FlexRay" TypeGUID="e33fae90-03f1-4f76-b2f1-6eb8fcac2676" Identifier="f12bd118-b7a7-47b4-bb54-f652e2d81618">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+							<Section Name="LIN" TypeGUID="c9c30728-42cb-4dc3-b054-b80e7a54e833" Identifier="9dc7968b-ce3d-4a3f-894a-2dc7e8e4638c">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+						</Section>
+						<Section Name="Data Sharing" TypeGUID="d56f3ac1-7b2c-422c-9d11-fd9cc7abf2a5" Identifier="9ac051bb-dc1e-478f-a2cc-c712de5889c5">
+							<Description />
+							<Properties>
+								<Property Name="CD Status">
+									<U32>2</U32>
+								</Property>
+							</Properties>
+							<Errors />
+						</Section>
+					</Section>
+					<Section Name="SLSC" TypeGUID="3ea8ee87-daf4-4abc-a6e6-9c54a9452824" Identifier="4f9957ae-f161-452d-bdb5-589fb2715ae2">
+						<Description />
+						<Properties />
+						<Errors />
+					</Section>
+				</Section>
+				<Section Name="Custom Devices" TypeGUID="03D3BB79-1485-13A6-5605EB7AFD7405AC" Identifier="1e40ae64-0486-4528-b1a5-b22fc6d1ba6e">
+					<Description />
+					<Properties />
+					<Errors />
+				</Section>
+				<Section Name="Simulation Models" TypeGUID="03D3B937-1485-13A6-5600F2871E269F9A" Identifier="54295120-6650-4507-ba10-cd9d1fbd5aad">
+					<Description />
+					<Properties>
+						<Property Name="ParameterAccess">
+							<I32>1</I32>
+						</Property>
+					</Properties>
+					<Errors />
+					<Section Name="Models" TypeGUID="03D3B976-1485-13A6-5604255F981010CE" Identifier="73944a52-cec9-4396-8256-f3ff5b3a4f49">
+						<Description />
+						<Properties />
+						<Errors />
+						<Section Name="Controller" TypeGUID="03D3B9C4-1485-13A6-561FC9BB21813875" Identifier="81320687-a1b9-4307-9e4f-4c9526e3b096">
+							<Description>Implementation of Controller.vsmodel from simulink</Description>
+							<Properties>
+								<Property Name="Base Rate">
+									<Double>1000</Double>
+								</Property>
+								<Property Name="DLL Size">
+									<I32>20752</I32>
+								</Property>
+								<Property Name="DLL Timestamp">
+									<Double>3871965374.5924869</Double>
+								</Property>
+								<Property Name="Decimation">
+									<I32>1</I32>
+								</Property>
+								<Property Name="Import Definition ID">
+									<I32>0</I32>
+								</Property>
+								<Property Name="ID">
+									<I32>0</I32>
+								</Property>
+								<Property Name="Model Timestamp">
+									<Double>0</Double>
+								</Property>
+								<Property Name="Processor">
+									<I32>0</I32>
+								</Property>
+								<Property Name="Show Unnamed Signals">
+									<Boolean>false</Boolean>
+								</Property>
+								<Property Name="User Rate">
+									<Double>1000</Double>
+								</Property>
+								<Property Name="visible">
+									<U32>0</U32>
+								</Property>
+								<Property Name="blocks only">
+									<Boolean>false</Boolean>
+								</Property>
+								<Property Name="Segment Vectors">
+									<Boolean>true</Boolean>
+								</Property>
+								<Property Name="MD5">
+									<String>a3602e26580c5eabe3e93f2204e9d835</String>
+								</Property>
+								<Property Name="NIVeriStandServer Port">
+									<U32>6012</U32>
+								</Property>
+								<Property Name="Model Bitness">
+									<I32>64</I32>
+								</Property>
+								<Property Name="DLL Path">
+									<DependentFile Type="Absolute" Path="C:\Users\VECU\Documents\ModelFramework\matlab_simulink\Controller.vsmodel">
+										<Version>0.0</Version>
+										<ForceDownload>false</ForceDownload>
+										<RTDestination>C:\ni-rt\NIVeriStand\Models\Controller.vsmodel</RTDestination>
+										<SupportedTarget>All</SupportedTarget>
+										<MD5>a3602e26580c5eabe3e93f2204e9d835</MD5>
+									</DependentFile>
+								</Property>
+								<Property Name="File Version">
+									<String>0.0</String>
+								</Property>
+								<Property Name="Product Name">
+									<String />
+								</Property>
+								<Property Name="Internal Name">
+									<String />
+								</Property>
+								<Property Name="Company Name">
+									<String />
+								</Property>
+								<Property Name="Legal Copyright">
+									<String />
+								</Property>
+								<Property Name="File Description">
+									<String />
+								</Property>
+								<Property Name="Model Generation Toolchain Version">
+									<String>25.5</String>
+								</Property>
+								<Property Name="Model Author">
+									<String />
+								</Property>
+								<Property Name="Target Platforms">
+									<StringArray>
+										<Elem>Windows</Elem>
+									</StringArray>
+								</Property>
+								<Property Name="GlobalParameterScopes">
+									<I32>0</I32>
+								</Property>
+							</Properties>
+							<Errors />
+							<Section Name="Execution" TypeGUID="03D3BA9F-1485-13A6-56E3D5196780015F" Identifier="231f9e1f-262b-4b0e-8953-0d438c473bc5">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="Model Command" TypeGUID="03D3BABE-1485-13A6-56C34B877844B2C1" Identifier="3d466427-2c3d-4b5f-9066-a7ae05521b6e" RowDim="1" ColDim="1" Units="" BitFields="3">
+									<Description>0: Start
+1: Pause
+2: Reset
+3: Save
+4: Restore</Description>
+									<Properties>
+										<Property Name="Value Table">
+											<Dictionary>
+												<Elem Key="Start">
+													<Double>0</Double>
+												</Elem>
+												<Elem Key="Pause">
+													<Double>1</Double>
+												</Elem>
+												<Elem Key="Reset">
+													<Double>2</Double>
+												</Elem>
+												<Elem Key="Save">
+													<Double>3</Double>
+												</Elem>
+												<Elem Key="Restore">
+													<Double>4</Double>
+												</Elem>
+											</Dictionary>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Model Time" TypeGUID="03D3BAAE-1485-13A6-5606A77AB57A7FC9" Identifier="c9b8c667-5546-4b90-a21a-e2bc46eaa7cf" RowDim="1" ColDim="1" Units="sec" BitFields="1">
+									<Description />
+									<Properties />
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Model Status" TypeGUID="03D3BB6A-1485-13A6-5643A7AFDA3A2658" Identifier="c54c3865-412f-415e-9f76-f465c0d0d7b0" RowDim="1" ColDim="1" Units="" BitFields="1">
+									<Description>0: Running
+1: Paused
+2: Resetting
+3: Idle
+4: Stopped
+5: Restoring
+6: Saving</Description>
+									<Properties>
+										<Property Name="Value Table">
+											<Dictionary>
+												<Elem Key="Running">
+													<Double>0</Double>
+												</Elem>
+												<Elem Key="Paused">
+													<Double>1</Double>
+												</Elem>
+												<Elem Key="Resetting">
+													<Double>2</Double>
+												</Elem>
+												<Elem Key="Idle">
+													<Double>3</Double>
+												</Elem>
+												<Elem Key="Stopped">
+													<Double>4</Double>
+												</Elem>
+												<Elem Key="Restoring">
+													<Double>5</Double>
+												</Elem>
+												<Elem Key="Saving">
+													<Double>6</Double>
+												</Elem>
+											</Dictionary>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Time Step Duration" TypeGUID="8e7cc8ad-0a9f-4b63-b5f0-59c025358253" Identifier="69454686-f074-454b-a8a1-331930770ed8" RowDim="1" ColDim="1" Units="usec" BitFields="1">
+									<Description>The duration in microseconds of the last model time step.</Description>
+									<Properties />
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Inports" TypeGUID="03D3B9E3-1485-13A6-56035B19B2245EB3" Identifier="03d6e915-22dc-4f1e-ae97-6b929109329a">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="Setpoint" TypeGUID="03D3B985-1485-13A6-56FC3200A1C00087" Identifier="adb3ddae-9eef-40b0-ae52-781d28287e51" RowDim="1" ColDim="1" Units="" BitFields="7">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Setpoint</String>
+										</Property>
+										<Property Name="Index">
+											<I32>0</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Process_Variable" TypeGUID="03D3B985-1485-13A6-56FC3200A1C00087" Identifier="3e39591d-7092-4995-9e44-39b07d7dc61e" RowDim="1" ColDim="1" Units="" BitFields="7">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Process_Variable</String>
+										</Property>
+										<Property Name="Index">
+											<I32>1</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Outports" TypeGUID="03D3B9F3-1485-13A6-5698C14838D6AA3C" Identifier="5211f0ef-5780-4b75-9acc-115859a8db80">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="Control_Signal" TypeGUID="03D3B995-1485-13A6-56ABA0860ADF91DF" Identifier="298295fe-459b-4a0f-840b-cfe710354bcd" RowDim="1" ColDim="1" Units="" BitFields="5">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Control_Signal</String>
+										</Property>
+										<Property Name="Index">
+											<I32>0</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Parameters" TypeGUID="03D3BB0C-1485-13A6-56E10CEFF755E7D3" Identifier="bcfe03db-9ae5-44ad-9d6c-958e7c33dad5">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="D" TypeGUID="03D3B9A5-1485-13A6-56C6D6209A7E7998" Identifier="ea62a2d2-e9e9-457c-81f0-eb551657ff0d" RowDim="1" ColDim="1" Units="" BitFields="1">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Controller/D</String>
+										</Property>
+										<Property Name="Expression">
+											<String>D</String>
+										</Property>
+										<Property Name="Parameter Index">
+											<I32>0</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="I" TypeGUID="03D3B9A5-1485-13A6-56C6D6209A7E7998" Identifier="ba22961e-bf76-469f-8964-1b20af7f0cdd" RowDim="1" ColDim="1" Units="" BitFields="1">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Controller/I</String>
+										</Property>
+										<Property Name="Expression">
+											<String>I</String>
+										</Property>
+										<Property Name="Parameter Index">
+											<I32>1</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>1</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="P" TypeGUID="03D3B9A5-1485-13A6-56C6D6209A7E7998" Identifier="cb208d17-539c-4ef9-a0db-97354867f584" RowDim="1" ColDim="1" Units="" BitFields="1">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Controller/P</String>
+										</Property>
+										<Property Name="Expression">
+											<String>P</String>
+										</Property>
+										<Property Name="Parameter Index">
+											<I32>2</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>1</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Signals" TypeGUID="03D3BA31-1485-13A6-567CA69E9D2E71D5" Identifier="1f68f7ca-ed0a-4b14-96cb-fb912bc67968">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+						</Section>
+						<Section Name="Plant" TypeGUID="03D3B9C4-1485-13A6-561FC9BB21813875" Identifier="93175c16-2017-4eb2-a008-572f9a5b852b">
+							<Description>Implementation of Plant.vsmodel from simulink</Description>
+							<Properties>
+								<Property Name="Base Rate">
+									<Double>1000</Double>
+								</Property>
+								<Property Name="DLL Size">
+									<I32>20383</I32>
+								</Property>
+								<Property Name="DLL Timestamp">
+									<Double>3871965383.6570559</Double>
+								</Property>
+								<Property Name="Decimation">
+									<I32>1</I32>
+								</Property>
+								<Property Name="Import Definition ID">
+									<I32>0</I32>
+								</Property>
+								<Property Name="ID">
+									<I32>0</I32>
+								</Property>
+								<Property Name="Model Timestamp">
+									<Double>0</Double>
+								</Property>
+								<Property Name="Processor">
+									<I32>0</I32>
+								</Property>
+								<Property Name="Show Unnamed Signals">
+									<Boolean>false</Boolean>
+								</Property>
+								<Property Name="User Rate">
+									<Double>1000</Double>
+								</Property>
+								<Property Name="visible">
+									<U32>0</U32>
+								</Property>
+								<Property Name="blocks only">
+									<Boolean>false</Boolean>
+								</Property>
+								<Property Name="Segment Vectors">
+									<Boolean>true</Boolean>
+								</Property>
+								<Property Name="MD5">
+									<String>11bc6f6343bc0c98d23646572aa9557c</String>
+								</Property>
+								<Property Name="NIVeriStandServer Port">
+									<U32>6012</U32>
+								</Property>
+								<Property Name="Model Bitness">
+									<I32>64</I32>
+								</Property>
+								<Property Name="DLL Path">
+									<DependentFile Type="Absolute" Path="C:\Users\VECU\Documents\ModelFramework\matlab_simulink\Plant.vsmodel">
+										<Version>0.0</Version>
+										<ForceDownload>false</ForceDownload>
+										<RTDestination>C:\ni-rt\NIVeriStand\Models\Plant.vsmodel</RTDestination>
+										<SupportedTarget>All</SupportedTarget>
+										<MD5>11bc6f6343bc0c98d23646572aa9557c</MD5>
+									</DependentFile>
+								</Property>
+								<Property Name="File Version">
+									<String>0.0</String>
+								</Property>
+								<Property Name="Product Name">
+									<String />
+								</Property>
+								<Property Name="Internal Name">
+									<String />
+								</Property>
+								<Property Name="Company Name">
+									<String />
+								</Property>
+								<Property Name="Legal Copyright">
+									<String />
+								</Property>
+								<Property Name="File Description">
+									<String />
+								</Property>
+								<Property Name="Model Generation Toolchain Version">
+									<String>25.5</String>
+								</Property>
+								<Property Name="Model Author">
+									<String />
+								</Property>
+								<Property Name="Target Platforms">
+									<StringArray>
+										<Elem>Windows</Elem>
+									</StringArray>
+								</Property>
+								<Property Name="GlobalParameterScopes">
+									<I32>0</I32>
+								</Property>
+							</Properties>
+							<Errors />
+							<Section Name="Execution" TypeGUID="03D3BA9F-1485-13A6-56E3D5196780015F" Identifier="d8367453-a6c2-478a-ba6d-341014fcd3ff">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="Model Command" TypeGUID="03D3BABE-1485-13A6-56C34B877844B2C1" Identifier="57a02f75-9eb0-43ef-8ab8-ae5e053e93a9" RowDim="1" ColDim="1" Units="" BitFields="3">
+									<Description>0: Start
+1: Pause
+2: Reset
+3: Save
+4: Restore</Description>
+									<Properties>
+										<Property Name="Value Table">
+											<Dictionary>
+												<Elem Key="Start">
+													<Double>0</Double>
+												</Elem>
+												<Elem Key="Pause">
+													<Double>1</Double>
+												</Elem>
+												<Elem Key="Reset">
+													<Double>2</Double>
+												</Elem>
+												<Elem Key="Save">
+													<Double>3</Double>
+												</Elem>
+												<Elem Key="Restore">
+													<Double>4</Double>
+												</Elem>
+											</Dictionary>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Model Time" TypeGUID="03D3BAAE-1485-13A6-5606A77AB57A7FC9" Identifier="cf1de650-64fe-41be-9509-37286b97fccf" RowDim="1" ColDim="1" Units="sec" BitFields="1">
+									<Description />
+									<Properties />
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Model Status" TypeGUID="03D3BB6A-1485-13A6-5643A7AFDA3A2658" Identifier="4cdb6f3b-6380-4235-b0c0-767fd8e90c47" RowDim="1" ColDim="1" Units="" BitFields="1">
+									<Description>0: Running
+1: Paused
+2: Resetting
+3: Idle
+4: Stopped
+5: Restoring
+6: Saving</Description>
+									<Properties>
+										<Property Name="Value Table">
+											<Dictionary>
+												<Elem Key="Running">
+													<Double>0</Double>
+												</Elem>
+												<Elem Key="Paused">
+													<Double>1</Double>
+												</Elem>
+												<Elem Key="Resetting">
+													<Double>2</Double>
+												</Elem>
+												<Elem Key="Idle">
+													<Double>3</Double>
+												</Elem>
+												<Elem Key="Stopped">
+													<Double>4</Double>
+												</Elem>
+												<Elem Key="Restoring">
+													<Double>5</Double>
+												</Elem>
+												<Elem Key="Saving">
+													<Double>6</Double>
+												</Elem>
+											</Dictionary>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+								<Channel Name="Time Step Duration" TypeGUID="8e7cc8ad-0a9f-4b63-b5f0-59c025358253" Identifier="245693e8-f87d-409d-a71a-54bd1ff2944e" RowDim="1" ColDim="1" Units="usec" BitFields="1">
+									<Description>The duration in microseconds of the last model time step.</Description>
+									<Properties />
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Inports" TypeGUID="03D3B9E3-1485-13A6-56035B19B2245EB3" Identifier="fb476d56-213b-477e-8cf9-99108314ecce">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="Control_Signal" TypeGUID="03D3B985-1485-13A6-56FC3200A1C00087" Identifier="d3c46280-fbf9-47e2-b2dc-b0d7356959ac" RowDim="1" ColDim="1" Units="" BitFields="7">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Control_Signal</String>
+										</Property>
+										<Property Name="Index">
+											<I32>0</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Outports" TypeGUID="03D3B9F3-1485-13A6-5698C14838D6AA3C" Identifier="4ab2e358-fdfe-4139-aae8-e55d2b956b0e">
+								<Description />
+								<Properties />
+								<Errors />
+								<Channel Name="Process_Variable" TypeGUID="03D3B995-1485-13A6-56ABA0860ADF91DF" Identifier="59b7c5be-2807-4434-83aa-780d271c6045" RowDim="1" ColDim="1" Units="" BitFields="5">
+									<Description />
+									<Properties>
+										<Property Name="Model Path">
+											<String>Process_Variable</String>
+										</Property>
+										<Property Name="Index">
+											<I32>0</I32>
+										</Property>
+									</Properties>
+									<Errors />
+									<DefaultValue>
+										<Elem>0</Elem>
+									</DefaultValue>
+								</Channel>
+							</Section>
+							<Section Name="Parameters" TypeGUID="03D3BB0C-1485-13A6-56E10CEFF755E7D3" Identifier="cf9ebec4-4507-46a0-916d-8bc2c26938d8">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+							<Section Name="Signals" TypeGUID="03D3BA31-1485-13A6-567CA69E9D2E71D5" Identifier="e95c274a-c564-4f33-9f98-82965b9352ee">
+								<Description />
+								<Properties />
+								<Errors />
+							</Section>
+						</Section>
+					</Section>
+					<Section Name="Execution Order" TypeGUID="03D3B966-1485-13A6-569CFF8A449BF90A" Identifier="64ad508c-e9d6-4257-9672-8990a73e5b08">
+						<Description />
+						<Properties />
+						<Errors />
+					</Section>
+				</Section>
+				<Section Name="User Channels" TypeGUID="03D3B6B7-1485-13A6-567BE1E1E0DF999A" Identifier="f7e54569-d016-4203-bc7b-1d60dab18136">
+					<Description />
+					<Properties />
+					<Errors />
+				</Section>
+				<Section Name="Calculated Channels" TypeGUID="03D3B714-1485-13A6-56031C5F1CCB78A9" Identifier="d197fa1c-c949-40b5-8c1c-3e8c9ae5bf5b">
+					<Description />
+					<Properties />
+					<Errors />
+				</Section>
+				<Section Name="Alarms" TypeGUID="03D3B782-1485-13A6-56F58B35B6CBA484" Identifier="35431288-58ab-4b1a-99f6-aed3f76c00d6">
+					<Description />
+					<Properties>
+						<Property Name="Alarm Rate">
+							<I32>1</I32>
+						</Property>
+					</Properties>
+					<Errors />
+				</Section>
+				<Section Name="Procedures" TypeGUID="03D3B7B1-1485-13A6-56649C7783203F22" Identifier="fca2517b-6a4e-4bd5-ba6f-293d9ebbb728">
+					<Description />
+					<Properties />
+					<Errors />
+				</Section>
+				<Section Name="XNET Databases" TypeGUID="def5630b-577f-4ae9-9682-5f8ee445ee21" Identifier="f550df68-e2f1-47a6-819e-bb2ec48187ff">
+					<Description />
+					<Properties>
+						<Property Name="CD Status">
+							<U32>2</U32>
+						</Property>
+					</Properties>
+					<Errors />
+				</Section>
+				<Section Name="System Channels" TypeGUID="03D3B753-1485-13A6-56B10ED0820CF410" Identifier="9be4b776-837d-4cfc-84c3-a1fc625f45e2">
+					<Description />
+					<Properties />
+					<Errors />
+					<Channel Name="Actual Loop Rate" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="e5b98344-75f3-4425-8f96-47c8bcc29d2e" RowDim="1" ColDim="1" Units="Hz" BitFields="1">
+						<Description>The execution rate of the Primary Control Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Command Index" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="fd9fa770-d6db-484b-bff0-47522263c750" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Command Rate" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="cca22362-544f-46b3-8b26-0ac3086b13c5" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The decimation of the Data Processing Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Time" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="0fdbe361-e338-4176-a42d-c66580567e8c" RowDim="1" ColDim="1" Units="sec" BitFields="1">
+						<Description>The relative system time of the VeriStand Engine according to the iteration count and Delta T of the Primary Control Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Alarm Rate" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="17286814-ef46-40cc-b582-94b998c00d44" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="DAQ Error" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="0a4a3630-4a2c-4355-858b-0ceb899d1627" RowDim="1" ColDim="1" Units="Error Code" BitFields="3">
+						<Description>The last reported error code from a DAQmx function call. The value zero indicates no error has occurred.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Delta T" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="7ab5614c-df56-40ee-bf53-5f6bf6b09e73" RowDim="1" ColDim="1" Units="sec" BitFields="1">
+						<Description>The period in seconds of the Primary Control Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Compiler Error" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="c259a382-e624-464e-a27a-c8e43b1a6e84" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Stack Index 1" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="d9768ba0-d72b-4fcf-8c9d-18f4c0dcdaef" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Stack Index 2" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="20b09be9-3f33-4287-853a-2cc311bb7049" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Stack Index 3" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="39c2cc8c-5a3a-4733-a493-134da59ccd58" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Resume Flag" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="1d3c3214-50be-4edb-8e08-7e3fdbfb7dc5" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Stack Index 4" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="cf7a7b1a-3f6a-4ea3-b3ca-bb2838661f3c" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Stack Index 5" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="3410d6ca-2126-456d-a996-3dfbf10ae046" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Stack Index 6" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="d3a637d1-8448-4bfb-a083-29e53de72bd3" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>-1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Tripped Low Alarm" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="1bf8aa68-f617-46fa-8392-0bf2cf54ace9" RowDim="1" ColDim="1" Units="ID" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Tripped Medium Alarm" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="b3d858a3-4915-4db6-b009-a119dedba1dc" RowDim="1" ColDim="1" Units="ID" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Tripped High Alarm" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="4d83470c-b9b4-42ac-a83f-fc70bb380c0f" RowDim="1" ColDim="1" Units="ID" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Tripped Low Value" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="e9ff8eb0-4a02-41b4-81e5-3bfd77b95fea" RowDim="1" ColDim="1" Units="EUs" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Tripped Medium Value" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="da0726f8-9543-4ba1-a365-b679d58eac4a" RowDim="1" ColDim="1" Units="EUs" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Tripped High Value" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="2839c4ca-607c-478d-8941-2a44e1bcf7f0" RowDim="1" ColDim="1" Units="EUs" BitFields="1">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="RT Engine Build" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="d06ba653-92e0-41d0-8b55-82a45890a8df" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>A value representing the build number of the NI VeriStand Engine</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="HP Loop Duration" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="1d9fd506-c11f-4e66-aa3c-7cf21f4a2a22" RowDim="1" ColDim="1" Units="nsec" BitFields="1">
+						<Description>The duration of the Primary Control Loop in nanoseconds</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="LP Loop Duration" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="2599a0ef-b7a8-4184-9e26-17ae43b5fdbf" RowDim="1" ColDim="1" Units="nsec" BitFields="1">
+						<Description>The duration of the Data Processing Loop in nanoseconds</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Command" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="2f108f4f-4acd-4aa5-8214-737e2c10b9e3" RowDim="1" ColDim="1" Units="Enum" BitFields="3">
+						<Description>Internally commands the RT system with the following numeric values:
+
+0: None
+1: Restart System
+2: Reset System
+3: Shut Down System
+4: Reboot System</Description>
+						<Properties>
+							<Property Name="Value Table">
+								<Dictionary>
+									<Elem Key="None">
+										<Double>0</Double>
+									</Elem>
+									<Elem Key="Restart System">
+										<Double>1</Double>
+									</Elem>
+									<Elem Key="Reset System">
+										<Double>2</Double>
+									</Elem>
+									<Elem Key="Shut Down System">
+										<Double>3</Double>
+									</Elem>
+									<Elem Key="Reboot System">
+										<Double>4</Double>
+									</Elem>
+								</Dictionary>
+							</Property>
+						</Properties>
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Streamed Channel Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="07c68243-eb74-4f17-b6f4-9d8065912366" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of channels that the VeriStand Engine is currently streaming to the host</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Max Streamed Channels" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="e69f3c43-0c2c-4da7-951c-aeb33a4fd7d8" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The maximum number of channels that the VeriStand Engine can stream to the host</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Model Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="e352e282-d140-4dd9-9ca1-9ece030f8aba" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the models have not completed their execution in time</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Clients" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="e96e81d3-d5d1-4f39-911c-31dae83cbd5f" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Maximum GENs" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="46ca1db6-be2c-4040-9259-baa6054137ac" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Generator Engine State" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="d463be1a-8587-48f3-aba3-58401e9c97b1" RowDim="1" ColDim="1" Units="Enum" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties>
+							<Property Name="Value Table">
+								<Dictionary>
+									<Elem Key="Idle">
+										<Double>0</Double>
+									</Elem>
+									<Elem Key="Running">
+										<Double>1</Double>
+									</Elem>
+									<Elem Key="Stopped">
+										<Double>2</Double>
+									</Elem>
+									<Elem Key="Paused">
+										<Double>3</Double>
+									</Elem>
+								</Dictionary>
+							</Property>
+						</Properties>
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Watchdog Timer" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="de6444c1-2890-4e53-bceb-eadf19d68019" RowDim="1" ColDim="1" Units="nsec" BitFields="1">
+						<Description>The amount of time in nanoseconds since the Watchdog Timer Loop last executed. The Watchdog Timer Loop is set to execute at a rate of 10Hz.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="HS TCP Overflow Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="73fff5c0-109f-4424-b740-23e874f3fa8e" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the streaming data gets overwritten.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Host IP" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="5e0ed71f-ad88-44fa-931a-32b31121b080" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The 32-bit integer IP Address of the connected host. A zero value indicates no host is connected to the VeriStand Engine.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Trace Enabled Flag" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="3bcc92d1-2b15-4cea-bea8-1efba834f6d6" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Specifies whether execution tracing is currently active on the RT Target.  Set to 1 to start tracing.  Set to 0 to stop tracing and send result to host (if no host is present it is logged to disk).  Set to -1 to stop tracing and write result to disk.</Description>
+						<Properties>
+							<Property Name="Value Table">
+								<Dictionary>
+									<Elem Key="Stop and Write to Disk">
+										<Double>-1</Double>
+									</Elem>
+									<Elem Key="Stop and Send to Host">
+										<Double>0</Double>
+									</Elem>
+									<Elem Key="Start Trace">
+										<Double>1</Double>
+									</Elem>
+								</Dictionary>
+							</Property>
+						</Properties>
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Detailed Tracing Flag" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="b54c9baf-419e-4c8f-b7f8-162857dd45ae" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Specifies whether detailed execution tracing is enabled on the RT Target.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="VI Tracing Flag" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="6ed9a1b4-b36a-47e2-9d38-6a284f079757" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Specifies whether VI execution tracing is enabled on the RT Target.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Trace Buffer Size" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="83dd2612-a60e-4764-9a48-9dc057b7e6b9" RowDim="1" ColDim="1" Units="Bytes" BitFields="3">
+						<Description>Specifies the size in bytes of the execution trace buffer on the RT Target.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>250000</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Thread Tracing Flag" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="3a1bc8f6-23d1-43f7-84a1-dce51b3e850e" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Specifies whether thread execution tracing is enabled on the RT Target.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>1</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Absolute Time" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="bd3ccdf7-bf5e-4532-9242-07f1a40d61e4" RowDim="1" ColDim="1" Units="sec" BitFields="1">
+						<Description>Returns the current date and time in seconds relative to 12:00 a.m., Friday, January 1, 1904, Universal Time [01-01-1904 00:00:00]. This value is coerced from a 128-bit value to double precision, which may impact resolution.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Time - Microseconds" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="86e913c2-6056-4c8d-b1d7-833ffe96be16" RowDim="1" ColDim="1" Units="usec" BitFields="1">
+						<Description>The relative system time in microseconds of the VeriStand Engine according to the iteration count and Delta T of the Primary Control Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="ASAM XIL EESPort Trigger" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="2055e67c-89fa-49e3-b0a1-9c9a6d280970" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Trigger the next EES Error Set from the EES Error Configuration.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="ASAM XIL EESPort Trigger Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="794a8f33-f538-4ce4-bf0a-721fa4283852" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Count the number of EESPort Triggers.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 43" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="df11b90e-6b54-4656-9858-6c68a1494333" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 44" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="d4cfc601-402c-42be-83cb-8f58e2e53bfb" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="PC Timing - Iterations" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="c50462b8-2aee-481e-bf12-cc3bd45de25d" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="PC Timing - Min Wait" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="6b9ff8b0-3ab1-43d8-b4e9-5fe48337a626" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="PC Timing - Actual Wait" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="36e67936-80a9-4d26-9072-e1ab17d2f7d7" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Failure Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="e42dc7a1-2f26-4317-9a82-e953a91fe831" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The failure count of current analysis settings</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Analysis State" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="bd43cd38-c528-4fe4-95ac-8bc724751026" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The state of the analysis sub-system on the RT execution host</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="TCP Data Packet Loss" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="b7ce8918-4eac-4384-a471-f00fa8d1c328" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the VeriStand Engine fails to send a data packet to the host. A non-zero number can indicate data loss in logged data. The value is reset every time a Workspace connects to the VeriStand Engine.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="WPL Overflow Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="a92afe51-acc7-435a-ba0f-361ebafc4369" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the waveform processing loop attempted to write to a waveform read session within the NI VeriStand engine and timed out.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="WPL TCP Overflow Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="1ebd8e59-f450-4e4a-8c11-e939ed5f9293" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the waveform processing loop attempted to write to the TCP loop (for a host waveform stream session) and timed out.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="WPL Error Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="c8f2f2f6-b5d9-4ceb-b745-ec2ceb77c5c2" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the waveform processing loop encountered an error.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="WPL Error Code" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="5736efdc-c62e-4d75-b4eb-918245cb4272" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The last error code encountered by the waveform processing loop.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Streamed Waveform Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="509e4222-e661-484c-9442-27bb1597db4e" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of waveforms that the VeriStand Engine is currently streaming to the host</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Iteration" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="fe6378a4-1f66-4545-9ccc-a8b7b77441ea" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The iteration count of the Primary Control Loop.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Last Late Iteration" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="51ca8f44-0abd-46d9-974e-9da0309444bc" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The iteration count of the Primary Control Loop that last recorded a late count. If the Primary Control Loop has not recorded a late count, this value is -1.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 58" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="9bd65e89-c4fb-4282-b9d8-46d8bd9f1cd4" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 59" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="cd8ab19b-f689-4c8b-ae7b-26211ce24101" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Real-Time Sequence Command" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="f25121f6-27d5-4c2b-9bac-80c11e4d39d0" RowDim="1" ColDim="1" Units="" BitFields="3">
+						<Description>Internally commands the active real-time sequences with the following numeric values:
+
+0: None
+1: Stop All
+2: Abort All</Description>
+						<Properties>
+							<Property Name="Value Table">
+								<Dictionary>
+									<Elem Key="None">
+										<Double>0</Double>
+									</Elem>
+									<Elem Key="Stop All">
+										<Double>1</Double>
+									</Elem>
+									<Elem Key="Abort All">
+										<Double>2</Double>
+									</Elem>
+								</Dictionary>
+							</Property>
+						</Properties>
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Real-Time Sequence Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="823628d5-faa6-4a51-8123-61629dcc7b13" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of real-time sequences currently running.</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 62" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="94907306-b748-4a9d-801e-a645a5cb184d" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 63" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="d43aed44-0246-426d-8e32-325de68ba351" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 64" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="dd854c69-3170-4172-888d-a42dfee5c092" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 65" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="f90bf53b-0dd1-49c1-91b7-f99e014265ee" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 66" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="314dc245-5373-4287-93d8-8d83543a3810" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 67" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="b3ac5170-c534-4522-be8a-ee1a1b8c4614" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 68" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="c8d9cc18-0540-4cda-9f87-010ae1e9a95e" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 69" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="9bda566f-5585-4c37-b41f-f2faf2b29a52" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 70" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="c1a24ea6-6450-48c8-a773-75215ade18f5" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 71" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="471e42ae-3f57-44ca-b4f8-c05ab2305c5c" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 72" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="043f4e6e-e928-4573-9599-0c6153005eaa" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 73" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="b52cb0e9-c45b-4780-ab40-eaed58e8a33f" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 74" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="05e0c2d8-11b4-4809-85fc-88c0ae7c8d1b" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 75" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="9e075dd5-361c-47d4-a6b1-668b7a88a426" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 76" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="cd671d74-0862-4ef3-9007-084e7ee98f68" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 77" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="27e0f86d-5280-4173-acfb-f8e8f415d0f7" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 78" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="a28b979f-3ce1-4e64-a3e1-48ad5f610baa" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 79" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="4ac13d71-a1e0-4c4e-ab99-50fb83e094a8" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 80" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="a4d33095-38ec-4047-b588-d854ea25c256" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 81" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="527e9524-bf89-4a78-9255-92764c1bceb3" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 82" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="a56b5fab-828a-4e05-aef4-7b88e902f9cf" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 83" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="a3a7019c-34de-4453-b6c5-e1fb94b7861d" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 84" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="71cf5c1f-bf24-4570-aed0-1bd2bec4099a" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 85" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="91900d9e-ecd2-44b4-b665-601a594d59a4" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 86" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="b12fd942-39ce-40c1-8e94-5a871a74c407" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 87" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="236c4efa-16be-447d-9dd8-dfd98d832273" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 88" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="db9bf482-8e24-478e-9712-39fe4e14aa13" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 89" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="bbc6235c-81c9-4882-bdfc-ffde62dc42bb" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 90" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="67b48f03-6238-4c3a-8d98-516ad9670713" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="System Reserved 91" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="161400fd-0db0-454e-ab65-b4e18b6c8ea0" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="AO1 Error" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="f718be1a-1ace-4082-b6f5-a5ab8d8d4ce4" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="HP Loop Wakeup Status" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="48ed5481-841a-417a-8023-7ab94dcf7465" RowDim="1" ColDim="1" Units="Enum" BitFields="1">
+						<Description>The wakeup status of the Primary Control Loop.
+
+0: Normal
+1: Aborted
+2: Asynchronous wakeup
+3: Timing source error
+4: Timed loop error
+5: Timeout</Description>
+						<Properties>
+							<Property Name="Value Table">
+								<Dictionary>
+									<Elem Key="Normal">
+										<Double>0</Double>
+									</Elem>
+									<Elem Key="Aborted">
+										<Double>1</Double>
+									</Elem>
+									<Elem Key="Asynchronous Wakeup">
+										<Double>2</Double>
+									</Elem>
+									<Elem Key="Timing Source Error">
+										<Double>3</Double>
+									</Elem>
+									<Elem Key="Timed Loop Error">
+										<Double>4</Double>
+									</Elem>
+									<Elem Key="Timeout">
+										<Double>5</Double>
+									</Elem>
+								</Dictionary>
+							</Property>
+						</Properties>
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="HD Free Space" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="8d1bb7da-9337-4825-a04a-b30c2da9e2ab" RowDim="1" ColDim="1" Units="" BitFields="0">
+						<Description>Deprecated</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="HP-LP Overwrite" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="949a3606-e96a-443a-b883-a157933caac6" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the Primary Control Loop timed out writing channel data to the Data Processing Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="LP Data Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="06ddbe50-6b44-4d97-9712-54c80a137eea" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the Data Processing Loop timed out writing channel data to the Communication Send Loop</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="HP Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="f89c7bde-9249-4a6c-a5af-04e1658243c2" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the Primary Control Loop reported being late</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="LP Count" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="c53c9702-17f4-44a5-823e-132c0dfcff15" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The number of times the Data Processing Loop reported being late</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+					<Channel Name="Log Status" TypeGUID="03D3B762-1485-13A6-56F0D6D728909E23" Identifier="9d3f60e1-26d3-4b95-a83d-cca9db9a193a" RowDim="1" ColDim="1" Units="" BitFields="1">
+						<Description>The state of the logging sub-system on the RT execution host</Description>
+						<Properties />
+						<Errors />
+						<DefaultValue>
+							<Elem>0</Elem>
+						</DefaultValue>
+					</Channel>
+				</Section>
+			</Target>
+		</TargetSections>
+		<Section Name="Aliases" TypeGUID="e11f4519-09e6-4fb0-99df-2967c4313d67" Identifier="e84a42d8-dab8-4b7c-9b0b-445315ae0a2a">
+			<Description />
+			<Properties>
+				<Property Name="DoNotAllowUnmappedAliases">
+					<Boolean>true</Boolean>
+				</Property>
+			</Properties>
+			<Errors />
+		</Section>
+		<Section Name="Scales" TypeGUID="032c8aec-ce5b-6d40-06c5-5703bbc7ccee" Identifier="9b814356-7332-4217-8e0f-17299bb9fc5f">
+			<Description />
+			<Properties />
+			<Errors />
+		</Section>
+		<Section Name="System Mappings" TypeGUID="5691ea13-4544-497e-9bda-cf69dc707663" Identifier="d8d02db7-7344-407c-a136-be1347b65627">
+			<Description />
+			<Properties />
+			<Errors />
+		</Section>
+		<Section Name="Data Sharing Network" TypeGUID="8288dbb9-8c87-4fda-9c66-acec90c46c03" Identifier="19694df0-0bb7-4392-884b-b342aea59481">
+			<Description />
+			<Properties>
+				<Property Name="CD Status">
+					<U32>2</U32>
+				</Property>
+				<Property Name="DSN Dynamic Data Size">
+					<I32>30</I32>
+				</Property>
+			</Properties>
+			<Errors />
+		</Section>
+		<Section Name="System Initialization" TypeGUID="773b9311-3758-47fa-842f-b1c1960dabd0" Identifier="9bcba39d-c5fa-43ae-8b49-bb6b19a2f76a">
+			<Description />
+			<Properties>
+				<Property Name="Auto Start">
+					<Boolean>false</Boolean>
+				</Property>
+			</Properties>
+			<Errors />
+		</Section>
+	</Root>
+</Document>

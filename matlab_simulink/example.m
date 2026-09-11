@@ -1,32 +1,37 @@
-%% Example: using functions in the model folder
-% This script adds the model folder to the MATLAB path, lists its MATLAB
-% functions, and displays each function's help text.
+%% Example: using functions in the utilities folder
+% This script adds the model and utilities folders to the MATLAB path,
+% lists the MATLAB utilities, and displays each utility's help text.
 
 clearvars;
 clc;
 
 exampleFolder = fileparts(mfilename('fullpath'));
 modelFolder = fullfile(exampleFolder, 'model');
+utilitiesFolder = fullfile(exampleFolder, 'utilities');
 
 if ~isfolder(modelFolder)
 	error('The model folder does not exist: %s', modelFolder);
 end
+if ~isfolder(utilitiesFolder)
+	error('The utilities folder does not exist: %s', utilitiesFolder);
+end
 
 addpath(genpath(modelFolder));
-cleanupPath = onCleanup(@() rmpath(genpath(modelFolder))); %#ok<NASGU>
+addpath(genpath(utilitiesFolder));
+cleanupPath = onCleanup(@() cleanupExamplePath(modelFolder, utilitiesFolder)); %#ok<NASGU>
 
-% Find functions in the model folder and its subfolders.
-modelFiles = dir(fullfile(modelFolder, '**', '*.m'));
-modelFiles = modelFiles(~[modelFiles.isdir]);
+% Find utilities in the utilities folder and its subfolders.
+utilityFiles = dir(fullfile(utilitiesFolder, '**', '*.m'));
+utilityFiles = utilityFiles(~[utilityFiles.isdir]);
 
-if isempty(modelFiles)
-	fprintf('No MATLAB functions were found in %s.\n', modelFolder);
+if isempty(utilityFiles)
+	fprintf('No MATLAB utilities were found in %s.\n', utilitiesFolder);
 else
-	fprintf('Functions found in %s:\n\n', modelFolder);
-	for k = 1:numel(modelFiles)
-		[~, functionName] = fileparts(modelFiles(k).name);
+	fprintf('Utilities found in %s:\n\n', utilitiesFolder);
+	for k = 1:numel(utilityFiles)
+		[~, functionName] = fileparts(utilityFiles(k).name);
 		fprintf('%d. %s\n', k, functionName);
-		fprintf('   File: %s\n', fullfile(modelFiles(k).folder, modelFiles(k).name));
+		fprintf('   File: %s\n', fullfile(utilityFiles(k).folder, utilityFiles(k).name));
 
 		% Display the function's first help lines, when available.
 		helpText = help(functionName);
@@ -65,3 +70,8 @@ disp(buildInfo);
 % help myFunction
 % nargin('myFunction')
 % nargout('myFunction')
+
+function cleanupExamplePath(modelFolder, utilitiesFolder)
+rmpath(genpath(modelFolder));
+rmpath(genpath(utilitiesFolder));
+end

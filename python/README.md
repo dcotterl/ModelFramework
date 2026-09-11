@@ -194,3 +194,27 @@ are propagated through MATLAB Engine.
 
 The model-inspection APIs start MATLAB Engine, load the requested model without
 opening the Simulink editor, and close the model and engine before returning.
+
+## VeriStand system definitions
+
+`utilities/configuration_builder.py` follows the
+[niveristand 3.2.4 system-definition examples](https://niveristand-python.readthedocs.io/en/latest/sysdef_examples.html):
+it creates a `SystemDefinition`, configures its first target, and optionally
+saves the result as a `.nivssdf` file.
+
+Use `localhost` or `127.0.0.1` for a Windows target. A remote IP address
+creates a `Linux_x64` target and assigns that address to the target:
+
+```python
+from python.utilities.configuration_builder import build_veristand_configuration
+
+build_veristand_configuration(
+	"192.168.1.100",
+	output_path="veristand/new_configuration.nivssdf",
+)
+```
+
+The builder raises `FileNotFoundError` when the System Definition API reports
+that the file could not be saved. `niveristand` also requires NI VeriStand
+2021 or later to be installed and registered on Windows; the Python package
+alone does not include the required .NET assemblies.
