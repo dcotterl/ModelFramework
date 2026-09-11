@@ -17,9 +17,12 @@ Generated/
 # VeriStand log files
 *.vslog
 *.log
+Logs/
 
 # Custom Device build outputs
 *.lvlibp
 
 # VeriStand cache
 .veristand_cache/
+.cache/
+XNET Raw Frame Files/
