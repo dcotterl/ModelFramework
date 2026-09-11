@@ -2,7 +2,7 @@ from pathlib import Path
 from niveristand.systemdefinitionapi import SystemDefinition, Model
 
 COMPILED_MODEL_FOLDER = "C:\\Users\\VECU\\Documents\\ModelFramework\\matlab_simulink"
-TARGET_VERISTAND_PATH = "C:\\Users\\VECU\\Documents\\ModelFramework\\veristand\\workflow_example\\workflow_example.nivssdf"
+TARGET_VERISTAND_PATH = "veristand\\workflow_example\\workflow_example.nivssdf"
 
 def create_configuration(target_type : str = "Windows", target_ip : str = "127.0.0.1", output_path=TARGET_VERISTAND_PATH):
 	"""Create a VeriStand system definition and return it."""
