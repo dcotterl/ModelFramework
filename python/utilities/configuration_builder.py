@@ -1,35 +1,16 @@
 from pathlib import Path
+from niveristand.systemdefinitionapi import SystemDefinition, Model
+MODEL_PATH = "C:\\Users\\VECU\\Documents\\ModelFramework\\matlab_simulink\\Controller.vsmodel"
+COMPILED_MODEL_FOLDER = "C:\\Users\\VECU\\Documents\\ModelFramework\\matlab_simulink"
 
 
-def _load_system_definition_type():
-	"""Load the API type after verifying that VeriStand assemblies are available."""
-	try:
-		from niveristand.systemdefinitionapi import SystemDefinition
-	except (ImportError, OSError) as error:
-		raise RuntimeError(
-			"The niveristand package requires an installed and registered NI "
-			"VeriStand installation. The VeriStand .NET assembly "
-			"'NationalInstruments.VeriStand.RealTimeSequenceDefinitionApi' "
-			"could not be loaded. Install VeriStand 2021 or later, then run "
-			"this script from the activated environment again."
-		) from None
-	return SystemDefinition
+def create_configuration(target_type : str = "Windows", target_ip : str = "127.0.0.1", output_path="new_configuration.nivssdf"):
+	"""Create a VeriStand system definition and return it."""
 
-
-def build_veristand_configuration(target_ip, output_path=None):
-	"""Build a VeriStand system definition using the System Definition API.
-
-	``localhost`` and ``127.0.0.1`` create a Windows target. Other addresses
-	create a Linux_x64 target and are assigned to the first target in the
-	definition.
-	"""
-	if not target_ip:
-		raise ValueError("target_ip must be a non-empty string")
-
-	SystemDefinition = _load_system_definition_type()
-	filepath = Path(output_path or "new_configuration.nivssdf").resolve()
-	is_local = target_ip in {"localhost", "127.0.0.1"}
-	target_type = "Windows" if is_local else "Linux_x64"
+	system_definition = SystemDefinition()
+	filepath = Path(output_path).resolve()
+	print(f"filepath: {filepath}")
+	print(f"Target type: {target_type}, target_ip: {target_ip}")
 
 	system_definition = SystemDefinition(
 		filepath.name,
@@ -42,21 +23,49 @@ def build_veristand_configuration(target_ip, output_path=None):
 	)
 
 	target = system_definition.root.get_targets().get_target_list()[0]
-	if not is_local:
-		target.ip_address = target_ip
-
-	if output_path:
-		saved, error = system_definition.save_system_definition_file()
-		if not saved:
-			raise FileNotFoundError(
-				f'Unable to save System Definition to "{filepath}": {error}'
-			)
+	target.ip_address = target_ip
 
 	return system_definition
 
+def save_configuration(system_definition):
+	"""Save a VeriStand system definition and return the output path."""
+	filepath = Path(system_definition.document_type.document_file_path)
+	saved, error = system_definition.save_system_definition_file()
+	if not saved:
+		raise FileNotFoundError(f'Unable to save System Definition to "{filepath}": {error}')
+	return filepath
+
+def get_compiled_models(folder, extension = "vsmodel"):
+	"""Return a list of Paths for all files in folder (recursively) matching the given extension."""
+	folder = Path(folder)
+	extension = extension if extension.startswith(".") else f".{extension}"
+	return list(folder.rglob(f"*{extension}"))
+
+def add_model(system_definition, model, target_name=None):
+
+	target = next((t for t in system_definition.root.get_targets().get_target_list() if t.name == target_name), None)
+	if target is None:
+		raise ValueError(f'Target with name "{target_name}" not found.')
+
+	simulation_models = target.get_simulation_models()
+	simulation_models.get_models().add_model(model)
+	return system_definition
+
+def main():
+	config = create_configuration()
+	models = get_compiled_models(COMPILED_MODEL_FOLDER)
+	for model in models:
+		model = Model(model.stem,
+					  f"Implementation of {model.stem}{model.suffix} from simulink", 
+					  str(model),
+					  0, 1, 0, True, True, True)
+		config = add_model(config, model,"Controller")
+
+	save_configuration(config)
+	print(f"Saved configuration: {config.document_type.document_file_path}")
+
 
 if __name__ == "__main__":
-	build_veristand_configuration(
-		"192.168.1.100",
-		output_path="new_configuration.nivssdf",
-	)
+
+	main()
+
