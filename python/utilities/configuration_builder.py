@@ -74,8 +74,17 @@ def create_mapping():
 							    DEFAULT_TARGET_NAME, 
 								mapping.TARGET_MAPPING_FILE)
 
+def get_sysdef(path):
+	return SystemDefinition(path)
+
+def import_mapping(system_definition, mapping_file=mapping.TARGET_MAPPING_FILE):
+	source, destination = mapping.read_mapping(mapping_file)
+	system_definition.root.add_channel_mappings(source, destination)
+	save_configuration(system_definition)
+
 if __name__ == "__main__":
 
 	create_configuration_with_compiled_models()
-	#create_mapping()
+	create_mapping()
+	import_mapping(get_sysdef(TARGET_VERISTAND_PATH))
 

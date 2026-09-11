@@ -228,24 +228,6 @@
 				</Properties>
 				<Errors />
 			</Section>
-			<Section Name="Controller.vsmodel" TypeGUID="369b9797-43bd-4cdf-8352-81032feed666" Identifier="5e26c886-38d6-4d6d-8a70-ea2532781326">
-				<Description />
-				<Properties>
-					<Property Name="Path">
-						<String>C:\Users\VECU\Documents\ModelFramework\matlab_simulink\Controller.vsmodel</String>
-					</Property>
-				</Properties>
-				<Errors />
-			</Section>
-			<Section Name="Plant.vsmodel" TypeGUID="369b9797-43bd-4cdf-8352-81032feed666" Identifier="05425695-6512-48b6-b663-f75a8a2dcfd9">
-				<Description />
-				<Properties>
-					<Property Name="Path">
-						<String>C:\Users\VECU\Documents\ModelFramework\matlab_simulink\Plant.vsmodel</String>
-					</Property>
-				</Properties>
-				<Errors />
-			</Section>
 		</Section>
 	</Root>
 </Document>
