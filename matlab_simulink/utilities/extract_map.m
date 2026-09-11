@@ -3,7 +3,8 @@ function connections = extract_map(modelName)
 %   CONNECTIONS = EXTRACT_MAP(MODELNAME) scans the top level of MODELNAME
 %   for Goto and From blocks and, for each tag, resolves the block feeding
 %   the Goto block (Output) and the block(s) fed by the matching From
-%   block(s) (Inputs), returning a table.
+%   block(s) (Inputs), including their connected port numbers appended to
+%   each block path.
 %
 %   Example:
 %       connections = extract_map('average_subsystems');
@@ -35,7 +36,9 @@ for k = 1:numel(gotoBlocks)
     inportLine = lineHandles.Inport(1);
     if inportLine > 0
         srcHandle = get_param(inportLine, 'SrcBlockHandle');
-        entry.Output = string(getfullname(srcHandle));
+        srcPortHandle = get_param(inportLine, 'SrcPortHandle');
+        srcPortNumber = get_param(srcPortHandle, 'PortNumber');
+        entry.Output = string(getfullname(srcHandle)) + "/" + string(srcPortNumber);
     end
     tags(tag) = entry;
 end
@@ -49,8 +52,10 @@ for k = 1:numel(fromBlocks)
     outportLine = lineHandles.Outport(1);
     if outportLine > 0
         dstHandles = get_param(outportLine, 'DstBlockHandle');
+        dstPortHandles = get_param(outportLine, 'DstPortHandle');
         for d = 1:numel(dstHandles)
-            entry.Inputs(end+1) = string(getfullname(dstHandles(d)));
+            dstPortNumber = get_param(dstPortHandles(d), 'PortNumber');
+            entry.Inputs(end+1) = string(getfullname(dstHandles(d))) + "/" + string(dstPortNumber);
         end
     end
     tags(tag) = entry;
@@ -77,7 +82,9 @@ function entry = getOrCreateEntry(tags, tag)
 if isKey(tags, tag)
     entry = tags(tag);
 else
-    entry = struct('Tag', string(tag), 'Output', string(missing), 'Inputs', string.empty(1,0));
+    entry = struct('Tag', string(tag), ...
+        'Output', string(missing), ...
+        'Inputs', string.empty(1,0));
     tags(tag) = entry;
 end
 end
