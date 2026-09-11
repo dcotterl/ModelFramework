@@ -1,8 +1,14 @@
 from pathlib import Path
 from niveristand.systemdefinitionapi import SystemDefinition, Model
+from pathlib import Path
 
 COMPILED_MODEL_FOLDER = "C:\\Users\\VECU\\Documents\\ModelFramework\\matlab_simulink"
 TARGET_VERISTAND_PATH = "veristand\\workflow_example\\workflow_example.nivssdf"
+
+DEFAULT_MODEL = (
+	Path(__file__).parents[2]
+	/ "matlab_simulink"
+)
 
 def create_configuration(target_type : str = "Windows", target_ip : str = "127.0.0.1", output_path=TARGET_VERISTAND_PATH):
 	"""Create a VeriStand system definition and return it."""
@@ -53,6 +59,7 @@ def add_model(system_definition, model, target_name=None):
 def main():
 	config = create_configuration()
 	models = get_compiled_models(COMPILED_MODEL_FOLDER)
+	models = get_compiled_models(DEFAULT_MODEL)
 	for model in models:
 		model = Model(model.stem,
 					  f"Implementation of {model.stem}{model.suffix} from simulink", 
