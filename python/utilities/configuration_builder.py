@@ -1,16 +1,14 @@
 from pathlib import Path
 from niveristand.systemdefinitionapi import SystemDefinition, Model
-MODEL_PATH = "C:\\Users\\VECU\\Documents\\ModelFramework\\matlab_simulink\\Controller.vsmodel"
+
 COMPILED_MODEL_FOLDER = "C:\\Users\\VECU\\Documents\\ModelFramework\\matlab_simulink"
+TARGET_VERISTAND_PATH = "C:\\Users\\VECU\\Documents\\ModelFramework\\veristand\\workflow_example\\workflow_example.nivssdf"
 
-
-def create_configuration(target_type : str = "Windows", target_ip : str = "127.0.0.1", output_path="new_configuration.nivssdf"):
+def create_configuration(target_type : str = "Windows", target_ip : str = "127.0.0.1", output_path=TARGET_VERISTAND_PATH):
 	"""Create a VeriStand system definition and return it."""
 
 	system_definition = SystemDefinition()
 	filepath = Path(output_path).resolve()
-	print(f"filepath: {filepath}")
-	print(f"Target type: {target_type}, target_ip: {target_ip}")
 
 	system_definition = SystemDefinition(
 		filepath.name,
@@ -51,6 +49,7 @@ def add_model(system_definition, model, target_name=None):
 	simulation_models.get_models().add_model(model)
 	return system_definition
 
+
 def main():
 	config = create_configuration()
 	models = get_compiled_models(COMPILED_MODEL_FOLDER)
@@ -61,8 +60,9 @@ def main():
 					  0, 1, 0, True, True, True)
 		config = add_model(config, model,"Controller")
 
+
+
 	save_configuration(config)
-	print(f"Saved configuration: {config.document_type.document_file_path}")
 
 
 if __name__ == "__main__":
