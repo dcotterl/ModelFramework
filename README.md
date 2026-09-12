@@ -12,13 +12,20 @@ Simulink Coder.
 
 | Folder | Description |
 | --- | --- |
-| [`python/`](python/README.md) | Python code supporting the models (scripts, packages, utilities). |
-| [`matlab_simulink/`](matlab_simulink/README.md) | MATLAB scripts and Simulink models. |
-| [`veristand/`](veristand/README.md) | NI VeriStand projects and system definitions. |
-| [`labview/`](labview/README.md) | NI LabVIEW applications and libraries. |
+| [`python/`](python/README.md) | Python scripts, reusable utilities, and unit tests. |
+| [`matlab_simulink/`](matlab_simulink/README.md) | MATLAB scripts, Simulink models, and MATLAB utilities. |
+| [`veristand/`](veristand/README.md) | NI VeriStand projects, system definitions, and mappings. |
+| [`labview/`](labview/README.md) | Reserved area for NI LabVIEW applications and libraries. |
+| [`.vscode/`](.vscode/README.md) | Workspace interpreter and test-discovery settings. |
 
-Each folder has its own `README.md` describing its content and aim, and its
-own `.gitignore` tailored to the tool used in that folder.
+Each project folder has its own `README.md` describing its content and files.
+Nested folders document their models, utilities, tests, and workflow artifacts
+separately.
+
+## Root files
+
+- `README.md`: this repository overview and cross-tool getting-started guide.
+- `LICENSE`: MIT license terms for the project.
 
 ## Tools
 
@@ -39,7 +46,7 @@ From the repository root, report the continuous-time blocks in the included
 model with:
 
 ```powershell
-python python/utilities/subsystems.py
+.venv\Scripts\python.exe python\utilities\subsystems.py
 ```
 
 ## Versions

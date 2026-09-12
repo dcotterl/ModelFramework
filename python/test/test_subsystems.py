@@ -32,6 +32,8 @@ class TestSubsystems(unittest.TestCase):
     def test_flatten_handles_supports_scalar_and_nested_values(self):
         self.assertEqual(subsystems._flatten_handles(4.0), [4.0])
         self.assertEqual(subsystems._flatten_handles([[1.0, 2.0], [3.0]]), [1.0, 2.0, 3.0])
+        self.assertEqual(subsystems._flatten_handles([]), [])
+        self.assertEqual(subsystems._flatten_handles([1.0, 2.0]), [1.0, 2.0])
 
     def test_model_relative_path_strips_model_prefix(self):
         self.assertEqual(
@@ -58,7 +60,8 @@ class TestSubsystems(unittest.TestCase):
             model_path = Path(directory) / "demo.slx"
             model_path.touch()
 
-            result = subsystems.extract_subsystem_ports(model_path)
+            with self.assertLogs(subsystems.logger, level="INFO") as logs:
+                result = subsystems.extract_subsystem_ports(model_path)
 
         self.assertEqual(result, [{
             "subsystem": "Controller",
@@ -67,6 +70,7 @@ class TestSubsystems(unittest.TestCase):
         }])
         engine.close_system.assert_called_once_with("demo", 0, nargout=0)
         engine.quit.assert_called_once_with()
+        self.assertTrue(any("Found 1 top-level subsystems" in message for message in logs.output))
 
     def test_find_continuous_blocks_returns_matching_blocks_and_terminates_compile(self):
         engine = Mock()
@@ -143,6 +147,115 @@ class TestSubsystems(unittest.TestCase):
         }])
         engine.close_system.assert_called_once_with("demo", 0, nargout=0)
         engine.quit.assert_called_once_with()
+
+    def test_map_goto_from_connections_handles_unconnected_blocks(self):
+        engine = Mock()
+        engine.pwd.return_value = "original"
+        engine.find_system.side_effect = [["demo/Goto"], ["demo/From"]]
+
+        def get_param(handle, parameter, nargout):
+            values = {
+                ("demo/Goto", "GotoTag"): "SignalA",
+                ("demo/Goto", "LineHandles"): {"Inport": []},
+                ("demo/From", "GotoTag"): "SignalA",
+                ("demo/From", "LineHandles"): {"Outport": []},
+            }
+            return values[(handle, parameter)]
+
+        engine.get_param.side_effect = get_param
+        matlab_engine_module.start_matlab.return_value = engine
+
+        with tempfile.TemporaryDirectory() as directory:
+            model_path = Path(directory) / "demo.slx"
+            model_path.touch()
+
+            result = subsystems.map_goto_from_connections(model_path)
+
+        self.assertEqual(result, [{
+            "tag": "SignalA",
+            "sources": [],
+            "destinations": [],
+        }])
+
+    def test_map_goto_from_connections_rejects_mismatched_destination_handles(self):
+        engine = Mock()
+        engine.pwd.return_value = "original"
+        engine.find_system.side_effect = [[], ["demo/From"]]
+
+        def get_param(handle, parameter, nargout):
+            values = {
+                ("demo/From", "GotoTag"): "SignalA",
+                ("demo/From", "LineHandles"): {"Outport": [[4]]},
+                (4, "DstBlockHandle"): [[5]],
+                (4, "DstPortHandle"): [],
+            }
+            return values[(handle, parameter)]
+
+        engine.get_param.side_effect = get_param
+        matlab_engine_module.start_matlab.return_value = engine
+
+        with tempfile.TemporaryDirectory() as directory:
+            model_path = Path(directory) / "demo.slx"
+            model_path.touch()
+
+            with self.assertRaisesRegex(ValueError, "Mismatched destination handles"):
+                subsystems.map_goto_from_connections(model_path)
+
+        engine.close_system.assert_called_once_with("demo", 0, nargout=0)
+        engine.quit.assert_called_once_with()
+
+    def test_resolve_signal_endpoint_logs_unresolved_port(self):
+        engine = Mock()
+        engine.getfullname.return_value = "demo/Controller"
+        engine.get_param.side_effect = ["SubSystem", 1, 2]
+        engine.find_system.return_value = ["demo/Controller/Out1"]
+
+        with self.assertLogs(subsystems.logger, level="WARNING") as logs:
+            result = subsystems._resolve_signal_endpoint(
+                engine, 10, 11, "Outport", "demo"
+            )
+
+        self.assertEqual(result, {"subsystem": "Controller", "port": None})
+        self.assertTrue(any("No Outport block found" in message for message in logs.output))
+
+    def test_cleanup_does_not_hide_operation_failure(self):
+        engine = Mock()
+        engine.pwd.return_value = "original"
+        engine.find_system.side_effect = RuntimeError("operation failed")
+        engine.close_system.side_effect = RuntimeError("close failed")
+        engine.quit.side_effect = RuntimeError("quit failed")
+        cd_calls = []
+
+        def cd(path, nargout):
+            cd_calls.append(path)
+            if len(cd_calls) > 1:
+                raise RuntimeError("restore failed")
+
+        engine.cd.side_effect = cd
+        matlab_engine_module.start_matlab.return_value = engine
+
+        with tempfile.TemporaryDirectory() as directory:
+            model_path = Path(directory) / "demo.slx"
+            model_path.touch()
+
+            with self.assertRaisesRegex(RuntimeError, "operation failed"):
+                subsystems.extract_subsystem_ports(model_path)
+
+    def test_compiled_model_cleanup_does_not_hide_inspection_failure(self):
+        engine = Mock()
+        engine.pwd.return_value = "original"
+        engine.feval.side_effect = [None, RuntimeError("terminate failed")]
+        engine.find_system.side_effect = RuntimeError("inspection failed")
+        engine.close_system.side_effect = RuntimeError("close failed")
+        engine.quit.side_effect = RuntimeError("quit failed")
+        matlab_engine_module.start_matlab.return_value = engine
+
+        with tempfile.TemporaryDirectory() as directory:
+            model_path = Path(directory) / "demo.slx"
+            model_path.touch()
+
+            with self.assertRaisesRegex(RuntimeError, "inspection failed"):
+                subsystems.find_continuous_blocks(model_path)
 
 
 if __name__ == "__main__":

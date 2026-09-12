@@ -6,6 +6,12 @@ This folder contains Python code related to the ModelFramework project, such as
 scripts, packages, notebooks, and utilities used to build, analyze, or support
 the models handled by this repository.
 
+## Files
+
+- `hello.py`: MATLAB Engine example that lists model blocks and explicitly named signal lines; its `inspect_model()` function performs the inspection.
+- `README.md`: Python setup, command, and API guide.
+- `.gitignore`: excludes Python caches, virtual-environment artifacts, test caches, and generated local files.
+
 ## Aim
 
 The aim of this folder is to provide Python-based tooling for interacting with,
@@ -154,67 +160,26 @@ The result has this shape:
 `output` is `None` and `inputs` is empty for a tag whose `Goto`/`From` block is
 not wired to another block.
 
-### Model parameter files
+## Model parameters
 
-`execute_model_parameter_file()` runs a MATLAB `.m` script in the MATLAB base
-workspace and returns the variables created by the script:
-
-```python
-from python.utilities.subsystems import execute_model_parameter_file
-
-parameters = execute_model_parameter_file(
-	"matlab_simulink/model/simple_subsystems_parameters.m"
-)
-print(parameters["dt"])
-```
-
-By default, the function starts and closes its own MATLAB Engine. Pass an
-existing engine when the parameters must remain in the base workspace for a
-subsequent model load, simulation, or build:
-
-```python
-import matlab.engine
-
-from python.utilities.subsystems import execute_model_parameter_file
-
-engine = matlab.engine.start_matlab()
-try:
-	execute_model_parameter_file(
-		"matlab_simulink/model/simple_subsystems_parameters.m",
-		engine=engine,
-	)
-	engine.load_system("matlab_simulink/model/simple_subsystems.slx")
-finally:
-	engine.quit()
-```
-
-The function raises `FileNotFoundError` for a missing script and `ValueError`
-when the supplied file does not have a `.m` extension. MATLAB execution errors
-are propagated through MATLAB Engine.
-
-The model-inspection APIs start MATLAB Engine, load the requested model without
-opening the Simulink editor, and close the model and engine before returning.
+The Python utilities do not execute the MATLAB parameter script directly.
+`matlab_simulink/model/simple_subsystems_parameters.m` is a MATLAB base-
+workspace script and should be run from MATLAB before loading or building the
+simple-subsystem model.
 
 ## VeriStand system definitions
 
-`utilities/configuration_builder.py` follows the
-[niveristand 3.2.4 system-definition examples](https://niveristand-python.readthedocs.io/en/latest/sysdef_examples.html):
-it creates a `SystemDefinition`, configures its first target, and optionally
-saves the result as a `.nivssdf` file.
-
-Use `localhost` or `127.0.0.1` for a Windows target. A remote IP address
-creates a `Linux_x64` target and assigns that address to the target:
-
-```python
-from python.utilities.configuration_builder import build_veristand_configuration
-
-build_veristand_configuration(
-	"192.168.1.100",
-	output_path="veristand/new_configuration.nivssdf",
-)
-```
+`utilities/configuration_builder.py` creates a `SystemDefinition`, configures
+its first target, discovers compiled `.vsmodel` files, attaches models, and
+imports channel mappings. Its current public functions are documented in
+[`utilities/README.md`](utilities/README.md).
 
 The builder raises `FileNotFoundError` when the System Definition API reports
-that the file could not be saved. `niveristand` also requires NI VeriStand
-2021 or later to be installed and registered on Windows; the Python package
-alone does not include the required .NET assemblies.
+that a file could not be saved. `niveristand` also requires a compatible NI
+VeriStand installation and its supporting assemblies; the Python package
+alone is not sufficient.
+
+## Folder documentation
+
+- [`utilities/README.md`](utilities/README.md) documents every Python utility function.
+- [`test/README.md`](test/README.md) documents every test module and the test command.

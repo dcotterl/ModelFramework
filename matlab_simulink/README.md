@@ -2,10 +2,8 @@
 
 ## Content
 
-This folder contains MATLAB scripts, utilities, and Simulink models used in the
-ModelFramework project, including `.m` files, `.mlx` live scripts, `.slx`/`.mdl`
-Simulink models, MATLAB projects, and any associated configuration or data
-files needed to run them.
+This folder contains the MATLAB entry script, Simulink models, model
+parameters, and reusable MATLAB utilities used by ModelFramework.
 
 ## Aim
 
@@ -16,22 +14,21 @@ the repository.
 
 ## Utilities
 
-The `utilities/` folder contains reusable functions that operate on the
-included Simulink models (`simple_subsystems.slx`, `average_subsystems.slx`).
-Add both the model and utilities folders to the MATLAB path before calling
-them:
+The `utilities/` folder is a sibling of `model/` and contains reusable
+functions that operate on the included Simulink models. Add both folders to
+the MATLAB path before calling them:
 
 ```matlab
-addpath(genpath('matlab_simulink/model'));
 addpath(genpath('matlab_simulink/utilities'));
+addpath(genpath('matlab_simulink/model'));
 ```
 
 | Function | Purpose |
 | --- | --- |
-| `subsystem_port` | List the Inport/Outport blocks of every top-level subsystem. |
-| `continuous_blocks` | Compile the model and list every block with a continuous sample time. |
-| `extract_map` | Map Goto/From tags to the blocks that generate and consume their signal. |
-| `build_subsystems` | Apply configuration parameters and build every top-level subsystem with Simulink Coder. |
+| [`utilities/subsystem_port.m`](utilities/subsystem_port.m) | List Inport/Outport blocks for every top-level subsystem and return input/output tables. |
+| [`utilities/continuous_blocks.m`](utilities/continuous_blocks.m) | Compile a model when possible and return a table of blocks identified as continuous. |
+| [`utilities/extract_map.m`](utilities/extract_map.m) | Map Goto/From tags to source and destination block paths and port numbers. |
+| [`utilities/build_subsystems.m`](utilities/build_subsystems.m) | Apply model parameters and build each top-level subsystem with Simulink Coder. |
 
 ```matlab
 [inputPorts, outputPorts] = subsystem_port('average_subsystems');
@@ -50,6 +47,14 @@ it after adding the model folder to the MATLAB path:
 run('matlab_simulink/model/simple_subsystems_parameters.m');
 ```
 
-See [`example.m`](example.m) for a runnable script that adds the model and
-utilities folders to the path, lists the available utilities, and calls each
-of them against `average_subsystems`.
+See [`example.m`](example.m) for a runnable script that validates the folders,
+adds both to the path, lists available MATLAB utility files, displays help
+text, and calls each utility against `average_subsystems`.
+
+The remaining root file, `.gitignore`, excludes MATLAB-generated cache,
+autosave, build, and temporary artifacts from version control.
+
+## Folder documentation
+
+- [`model/README.md`](model/README.md) documents the Simulink model files and parameter script.
+- [`utilities/README.md`](utilities/README.md) documents every MATLAB function and local helper.
