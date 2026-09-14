@@ -3,7 +3,6 @@
 import logging
 from pathlib import Path
 import json
-import matlab.engine
 
 
 DEFAULT_MODEL = (
@@ -14,7 +13,53 @@ DEFAULT_MODEL = (
 )
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+
+def _load_matlab():
+	"""Load MATLAB Engine only when a MATLAB-backed operation is requested."""
+	import matlab
+	import matlab.engine
+
+	return matlab
+
+
+def _cleanup_engine(
+	engine,
+	model_name: str,
+	model_loaded: bool,
+	original_matlab_directory: str | None,
+	model_compiled: bool = False,
+) -> None:
+	"""Release MATLAB resources without hiding an earlier operation failure."""
+	if model_compiled:
+		try:
+			matlab = _load_matlab()
+			engine.feval(
+				model_name,
+				matlab.double([]),
+				matlab.double([]),
+				matlab.double([]),
+				"term",
+				nargout=0,
+			)
+		except Exception:
+			logger.exception("Failed to terminate compiled model %s", model_name)
+
+	logger.info("Closing MATLAB Engine")
+	if model_loaded:
+		try:
+			engine.close_system(model_name, 0, nargout=0)
+		except Exception:
+			logger.exception("Failed to close MATLAB model %s", model_name)
+	if original_matlab_directory is not None:
+		try:
+			engine.cd(original_matlab_directory, nargout=0)
+		except Exception:
+			logger.exception("Failed to restore MATLAB directory %s", original_matlab_directory)
+	try:
+		engine.quit()
+	except Exception:
+		logger.exception("Failed to quit MATLAB Engine")
 
 
 def extract_subsystem_ports(model_path: Path = DEFAULT_MODEL) -> list[dict[str, object]]:
@@ -27,6 +72,7 @@ def extract_subsystem_ports(model_path: Path = DEFAULT_MODEL) -> list[dict[str, 
 		raise FileNotFoundError(f"Simulink model not found: {model_path}")
 
 	model_name = model_path.stem
+	matlab = _load_matlab()
 	logger.info("Starting MATLAB Engine")
 	engine = matlab.engine.start_matlab()
 	original_matlab_directory = None
@@ -75,12 +121,7 @@ def extract_subsystem_ports(model_path: Path = DEFAULT_MODEL) -> list[dict[str, 
 		)
 		return subsystem_ports
 	finally:
-		logger.info("Closing MATLAB Engine")
-		if model_loaded:
-			engine.close_system(model_name, 0, nargout=0)
-		if original_matlab_directory is not None:
-			engine.cd(original_matlab_directory, nargout=0)
-		engine.quit()
+		_cleanup_engine(engine, model_name, model_loaded, original_matlab_directory)
 
 
 def find_continuous_blocks(model_path: Path = DEFAULT_MODEL) -> list[str]:
@@ -92,6 +133,7 @@ def find_continuous_blocks(model_path: Path = DEFAULT_MODEL) -> list[str]:
 		raise FileNotFoundError(f"Simulink model not found: {model_path}")
 
 	model_name = model_path.stem
+	matlab = _load_matlab()
 	logger.info("Starting MATLAB Engine")
 	engine = matlab.engine.start_matlab()
 	original_matlab_directory = None
@@ -133,21 +175,13 @@ def find_continuous_blocks(model_path: Path = DEFAULT_MODEL) -> list[str]:
 		logger.info("Found %d continuous blocks", len(continuous_blocks))
 		return continuous_blocks
 	finally:
-		if model_compiled:
-			engine.feval(
-				model_name,
-				matlab.double([]),
-				matlab.double([]),
-				matlab.double([]),
-				"term",
-				nargout=0,
-			)
-		logger.info("Closing MATLAB Engine")
-		if model_loaded:
-			engine.close_system(model_name, 0, nargout=0)
-		if original_matlab_directory is not None:
-			engine.cd(original_matlab_directory, nargout=0)
-		engine.quit()
+		_cleanup_engine(
+			engine,
+			model_name,
+			model_loaded,
+			original_matlab_directory,
+			model_compiled,
+		)
 
 
 def _flatten_handles(matlab_array) -> list[float]:
@@ -155,9 +189,18 @@ def _flatten_handles(matlab_array) -> list[float]:
 
 	Single handles come back as a plain float instead of a matlab.double array.
 	"""
+	if matlab_array is None:
+		return []
 	if isinstance(matlab_array, (int, float)):
 		return [matlab_array]
-	return [handle for row in matlab_array for handle in row]
+
+	handles = []
+	for row in matlab_array:
+		if isinstance(row, (int, float)):
+			handles.append(row)
+		else:
+			handles.extend(_flatten_handles(row))
+	return handles
 
 
 def _model_relative_path(full_name: str, model_name: str) -> str:
@@ -193,6 +236,12 @@ def _resolve_signal_endpoint(
 		if int(engine.get_param(port_block, "Port", nargout=1)) == port_number:
 			port_name = str(engine.get_param(port_block, "Name", nargout=1))
 			return {"subsystem": relative_name, "port": port_name}
+	logger.warning(
+		"No %s block found for port %d on subsystem %s",
+		port_block_type,
+		port_number,
+		full_name,
+	)
 	return {"subsystem": relative_name, "port": None}
 
 
@@ -213,6 +262,7 @@ def map_goto_from_connections(model_path: Path = DEFAULT_MODEL) -> list[dict[str
 		raise FileNotFoundError(f"Simulink model not found: {model_path}")
 
 	model_name = model_path.stem
+	matlab = _load_matlab()
 	logger.info("Starting MATLAB Engine")
 	engine = matlab.engine.start_matlab()
 	original_matlab_directory = None
@@ -248,7 +298,11 @@ def map_goto_from_connections(model_path: Path = DEFAULT_MODEL) -> list[dict[str
 			tag = str(engine.get_param(block, "GotoTag", nargout=1))
 			entry = tags.setdefault(tag, {"tag": tag, "sources": [], "destinations": []})
 			line_handles = engine.get_param(block, "LineHandles", nargout=1)
-			inport_line = _flatten_handles(line_handles["Inport"])[0]
+			inport_lines = _flatten_handles(line_handles.get("Inport", []))
+			if not inport_lines:
+				logger.debug("Goto block %s has no incoming signal", block)
+				continue
+			inport_line = inport_lines[0]
 			if inport_line > 0:
 				source_handle = engine.get_param(inport_line, "SrcBlockHandle", nargout=1)
 				source_port_handle = engine.get_param(inport_line, "SrcPortHandle", nargout=1)
@@ -262,7 +316,11 @@ def map_goto_from_connections(model_path: Path = DEFAULT_MODEL) -> list[dict[str
 			tag = str(engine.get_param(block, "GotoTag", nargout=1))
 			entry = tags.setdefault(tag, {"tag": tag, "sources": [], "destinations": []})
 			line_handles = engine.get_param(block, "LineHandles", nargout=1)
-			outport_line = _flatten_handles(line_handles["Outport"])[0]
+			outport_lines = _flatten_handles(line_handles.get("Outport", []))
+			if not outport_lines:
+				logger.debug("From block %s has no outgoing signal", block)
+				continue
+			outport_line = outport_lines[0]
 			if outport_line > 0:
 				destination_handles = _flatten_handles(
 					engine.get_param(outport_line, "DstBlockHandle", nargout=1)
@@ -270,6 +328,16 @@ def map_goto_from_connections(model_path: Path = DEFAULT_MODEL) -> list[dict[str
 				destination_port_handles = _flatten_handles(
 					engine.get_param(outport_line, "DstPortHandle", nargout=1)
 				)
+				if len(destination_handles) != len(destination_port_handles):
+					logger.error(
+						"Mismatched destination handles for From block %s: %d blocks, %d ports",
+						block,
+						len(destination_handles),
+						len(destination_port_handles),
+					)
+					raise ValueError(
+						f"Mismatched destination handles for From block {block}"
+					)
 				for dest_handle, dest_port_handle in zip(
 					destination_handles, destination_port_handles
 				):
@@ -283,12 +351,7 @@ def map_goto_from_connections(model_path: Path = DEFAULT_MODEL) -> list[dict[str
 		logger.info("Found %d Goto/From tag(s)", len(connections))
 		return connections
 	finally:
-		logger.info("Closing MATLAB Engine")
-		if model_loaded:
-			engine.close_system(model_name, 0, nargout=0)
-		if original_matlab_directory is not None:
-			engine.cd(original_matlab_directory, nargout=0)
-		engine.quit()
+		_cleanup_engine(engine, model_name, model_loaded, original_matlab_directory)
 
 
 def main() -> None:
