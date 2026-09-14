@@ -97,7 +97,7 @@ from python.utilities.subsystems import find_continuous_blocks
 
 continuous_blocks = find_continuous_blocks()
 for block_path in continuous_blocks:
-	print(block_path)
+    print(block_path)
 ```
 
 Pass a `pathlib.Path` or path-like value to inspect another model:
@@ -125,11 +125,11 @@ The result has this shape:
 
 ```json
 [
-	{
-		"subsystem": "Controller",
-		"input": ["Reference", "Feedback"],
-		"output": ["Command"]
-	}
+    {
+        "subsystem": "Controller",
+        "input": ["Reference", "Feedback"],
+        "output": ["Command"]
+    }
 ]
 ```
 
@@ -149,11 +149,11 @@ The result has this shape:
 
 ```json
 [
-	{
-		"tag": "SignalA",
-		"output": "average_subsystems/Controller",
-		"inputs": ["average_subsystems/Plant"]
-	}
+    {
+        "tag": "SignalA",
+        "output": "average_subsystems/Controller",
+        "inputs": ["average_subsystems/Plant"]
+    }
 ]
 ```
 
@@ -174,10 +174,39 @@ its first target, discovers compiled `.vsmodel` files, attaches models, and
 imports channel mappings. Its current public functions are documented in
 [`utilities/README.md`](utilities/README.md).
 
+Use `configure_logging()` when embedding the builder in another script. It
+configures the shared root logger, allowing records from the builder,
+`mapping.py`, and `subsystems.py` to be viewed together:
+
+```python
+import logging
+
+from python.utilities.configuration_builder import configure_logging
+
+configure_logging(logging.DEBUG)
+```
+
 The builder raises `FileNotFoundError` when the System Definition API reports
 that a file could not be saved. `niveristand` also requires a compatible NI
 VeriStand installation and its supporting assemblies; the Python package
 alone is not sufficient.
+
+### Logging
+
+Run the configuration builder from the repository root to see logs from the
+builder, mapping, and subsystem utilities in one stream:
+
+```powershell
+python python/utilities/configuration_builder.py
+```
+
+The default level is `INFO`. Set `MODEL_FRAMEWORK_LOG_LEVEL` to `DEBUG` to
+include detailed model and channel-mapping events:
+
+```powershell
+$env:MODEL_FRAMEWORK_LOG_LEVEL = "DEBUG"
+python python/utilities/configuration_builder.py
+```
 
 ## Folder documentation
 

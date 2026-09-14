@@ -98,8 +98,7 @@ def create_mapping_file(model_map, controller_name, output_path):
             f.write(f"{entry}\n")
     logger.info("Wrote %d mapping link(s) to %s", len(mapping), output_path)
 
-
-def read_mapping(mapping_file):
+def read_mapping(mapping_file) -> tuple[list[str], list[str]]:
     """Read source and destination channel lists from a mapping file.
 
     Args:
@@ -132,8 +131,6 @@ def read_mapping(mapping_file):
             destination.append(content[1])
     logger.info("Read %d mapping link(s) from %s", len(source), mapping_file)
     return source, destination
-
-	
 
 if __name__ == "__main__":
     import subsystems

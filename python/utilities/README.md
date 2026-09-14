@@ -21,6 +21,7 @@ This folder contains the reusable Python modules that connect Simulink inspectio
   - `read_mapping(mapping_file)`: reads tab-separated source and destination lists and rejects malformed rows.
   - The script entry point obtains a Simulink map and writes `veristand/generated_mapping.txt`.
 - `configuration_builder.py`
+  - `configure_logging(level)`: configures the shared root logger used by all Python utilities.
   - `create_configuration(...)`: creates a VeriStand `SystemDefinition` and configures its first target.
   - `save_configuration(system_definition)`: saves a system definition and returns its output path.
   - `get_compiled_models(folder, extension)`: recursively finds compiled model files.
@@ -31,3 +32,27 @@ This folder contains the reusable Python modules that connect Simulink inspectio
   - `import_mapping(system_definition, mapping_file)`: reads channel mappings, adds them to a system definition, and saves it.
 
 MATLAB Engine is required for `subsystems.py` operations. The `mapping.py` tests can run without MATLAB because the subsystem dependency is imported only by the script entry point. VeriStand operations require the `niveristand` package and its supported NI VeriStand installation.
+
+## Logging
+
+The utility modules use module loggers and propagate their records to the root
+logger. `configuration_builder.py` configures that shared logger when run as a
+script, so builder, mapping, and subsystem messages appear in the same output.
+The default level is `INFO`; use `MODEL_FRAMEWORK_LOG_LEVEL=DEBUG` for detailed
+per-model and per-channel messages:
+
+```powershell
+$env:MODEL_FRAMEWORK_LOG_LEVEL = "DEBUG"
+python python/utilities/configuration_builder.py
+```
+
+When calling the builder from another Python script, configure logging before
+using the utility functions:
+
+```python
+import logging
+
+from python.utilities.configuration_builder import configure_logging
+
+configure_logging(logging.DEBUG)
+```
